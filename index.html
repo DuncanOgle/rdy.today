@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Rdy.Today</title>
+  <meta name=viewport content="width=device-width, initial-scale=1,minimum-scale=1.0, user-scalable=no">
+  <base href="/">
+</head>
+<body ng-controller="HomeController">
+{{data}}
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+  var app = angular.module('app', []);
+
+  app.controller('HomeController', ['$scope', 'Tube', 'Weather', 'NationalRail', function ($scope, Tube, Weather, NationalRail) {
+    $scope.data = {
+      weather: null,
+      tube: null,
+      rail: null
+    };
+
+    Tube.get().then(function (response) {
+      $scope.data.tube = response;
+    });
+    Weather.get().then(function (response) {
+      $scope.data.weather = response;
+    });
+    NationalRail.get();
+  }]);
+
+  app.factory('Tube', ['$http', '$q', function ($http, $q) {
+    var severityMap = [
+      "Special Service",
+      "Closed",
+      "Suspended",
+      "Part Suspended",
+      "Planned Closure",
+      "Part Closure",
+      "Severe Delays",
+      "Reduced Service",
+      "Bus Service",
+      "Minor Delays",
+      "Good Service",
+      "Part Closed",
+      "Exist Only",
+      "No Step Free Access",
+      "Change of frequency",
+      "Diverted",
+      "Not Running",
+      "Issues Reported",
+      "No Issues",
+      "Information",
+      "Service Closed"
+    ];
+
+    function cleanData(response) {
+      var toReturn = false;
+
+      angular.forEach(response.data, function (object, index) {
+        if (object.id === 'northern') {
+          toReturn = object.lineStatuses[0].statusSeverity;
+        }
+      });
+
+      return toReturn;
+    }
+
+    return {
+      get: function () {
+        var def = $q.defer();
+        $http.get('https://api.tfl.gov.uk/line/mode/tube/status').then(function (response) {
+          def.resolve(cleanData(response))
+        });
+        return def.promise;
+      },
+      severityToText: function (level) {
+        return severityMap[level];
+      }
+    };
+  }]);
+
+  app.factory('Weather', ['$http', '$q', function ($http, $q) {
+    function cleanData(response) {
+      // pop = possibility of precipitation
+      var toReturn = [];
+
+      angular.forEach(response.data.hourly_forecast, function (object, index) {
+        toReturn.push({
+          hour: object.hour_padded,
+          temperature: object.temp.metric,
+          feelsLike: object.feelslike.metric,
+          pop: object.pop
+        });
+      });
+
+      return toReturn;
+    }
+
+    return {
+      get: function () {
+        var def = $q.defer();
+        $http.get('http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/GB/London.json').then(function (response) {
+          def.resolve(cleanData(response))
+        });
+        return def.promise;
+      }
+    };
+  }]);
+
+  app.factory('NationalRail', ['$http', function ($http) {
+    return {
+      get: function () {
+        return true;
+      }
+    };
+  }]);
+</script>
+</html>
