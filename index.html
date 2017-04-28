@@ -5,9 +5,128 @@
   <title>Rdy.Today</title>
   <meta name=viewport content="width=device-width, initial-scale=1,minimum-scale=1.0, user-scalable=no">
   <base href="/">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .northern {
+      background: #000;
+      color: #FFF;
+    }
+
+    .overground {
+      background: #e86a10;
+    }
+
+    .bakerloo {
+      background: #894e24;
+    }
+
+    .central {
+      background: #dc241f;
+    }
+
+    .circle {
+      background: #ffce00;
+    }
+
+    .rain::after {
+      background: rgba(51, 122, 183, 0.3);
+      border-top: solid rgba(51, 122, 183, 0.5);
+      content: '';
+      /* height: 100%; */
+      width: 100%;
+      /* color: red; */
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .rain-10::after {
+      height: 10%;
+      border-top-width: 1px
+    }
+
+    .rain-20::after {
+      height: 20%;
+      border-top-width: 1px
+    }
+
+    .rain-30::after {
+      height: 30%;
+      border-top-width: 1px
+    }
+
+    .rain-40::after {
+      height: 40%;
+      border-top-width: 1px
+    }
+
+    .rain-50::after {
+      height: 50%;
+      border-top-width: 1px
+    }
+
+    .rain-60::after {
+      height: 60%;
+      border-top-width: 1px
+    }
+
+    .rain-70::after {
+      height: 70%;
+      border-top-width: 1px
+    }
+
+    .rain-80::after {
+      height: 80%;
+      border-top-width: 1px
+    }
+
+    .rain-90::after {
+      height: 90%;
+      border-top-width: 1px
+    }
+
+    .rain-100::after {
+      height: 100%;
+      border-top-width: 1px
+    }
+  </style>
 </head>
 <body ng-controller="HomeController">
-{{data}}
+
+<div class="list-group">
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Next trains to London Bridge from Lewisham</h4>
+    <div class="list-group-item-text">
+      <div ng-repeat="item in data.rail" style="display: inline-block;">
+        {{item.std}} <strong ng-if="item.etd !== 'On time'">({{item.etd}})</strong>
+        <br>{{item.platform}}
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Tube Status</h4>
+    <div class="list-group-item-text">
+      <div ng-repeat="item in data.tube">
+        <div class="{{item.line}}">{{item}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item">
+    <h4 class="list-group-item-heading">Weather</h4>
+    <div class="list-group-item-text">
+      <div class="btn-group">
+        <div class="btn btn-default rain rain-{{item.pop}}" ng-repeat="item in data.weather">
+          {{item.temperature}}°/{{item.feelsLike}}°
+          <br>({{item.pop}}%)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script>
@@ -26,7 +145,9 @@
     Weather.get().then(function (response) {
       $scope.data.weather = response;
     });
-    NationalRail.get();
+    NationalRail.get().then(function (response) {
+      $scope.data.rail = response;
+    });
   }]);
 
   app.factory('Tube', ['$http', '$q', function ($http, $q) {
@@ -55,12 +176,14 @@
     ];
 
     function cleanData(response) {
-      var toReturn = false;
+      var toReturn = [];
 
       angular.forEach(response.data, function (object, index) {
-        if (object.id === 'northern') {
-          toReturn = object.lineStatuses[0].statusSeverity;
-        }
+        toReturn.push({
+          line: object.id,
+          status: object.lineStatuses[0].statusSeverity,
+          disruption: object.lineStatuses[0].disruption ? object.lineStatuses[0].disruption.description : null
+        });
       });
 
       return toReturn;
@@ -74,7 +197,7 @@
         });
         return def.promise;
       },
-      severityToText: function (level) {
+      statusToText: function (level) {
         return severityMap[level];
       }
     };
@@ -83,15 +206,21 @@
   app.factory('Weather', ['$http', '$q', function ($http, $q) {
     function cleanData(response) {
       // pop = possibility of precipitation
+      var counter = 0;
       var toReturn = [];
 
       angular.forEach(response.data.hourly_forecast, function (object, index) {
+        if (counter >= 12) {
+          return true;
+        }
+
         toReturn.push({
           hour: object.hour_padded,
           temperature: object.temp.metric,
           feelsLike: object.feelslike.metric,
-          pop: object.pop
+          pop: parseInt(object.pop / 10, 10) + 10
         });
+        counter++;
       });
 
       return toReturn;
@@ -108,10 +237,32 @@
     };
   }]);
 
-  app.factory('NationalRail', ['$http', function ($http) {
+  app.factory('NationalRail', ['$http', '$q', function ($http, $q) {
+    function cleanData(response) {
+      var toReturn = [];
+
+      angular.forEach(response.data.trainServices, function (object, index) {
+        toReturn.push({
+          from: object.origin[0].locationName,
+          to: object.destination[0].locationName,
+          std: object.std,
+          etd: object.etd,
+          platform: object.platform,
+          cancelReason: object.cancelReason,
+          delayReason: object.delayReason
+        });
+      });
+
+      return toReturn;
+    }
+
     return {
       get: function () {
-        return true;
+        var def = $q.defer();
+        $http.get('https://huxley.apphb.com/departures/lew/to/lbg/5?accessToken=fc769847-9533-4832-b89c-9751ef2ffd53').then(function (response) {
+          def.resolve(cleanData(response))
+        });
+        return def.promise;
       }
     };
   }]);
