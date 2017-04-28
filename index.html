@@ -34,7 +34,6 @@
 
     .rain::after {
       background: rgba(51, 122, 183, 0.3);
-      border-top: solid rgba(51, 122, 183, 0.5);
       content: '';
       /* height: 100%; */
       width: 100%;
@@ -46,52 +45,52 @@
 
     .rain-10::after {
       height: 10%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-20::after {
       height: 20%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-30::after {
       height: 30%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-40::after {
       height: 40%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-50::after {
       height: 50%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-60::after {
       height: 60%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-70::after {
       height: 70%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-80::after {
       height: 80%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-90::after {
       height: 90%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
 
     .rain-100::after {
       height: 100%;
-      border-top-width: 1px
+      border: 1px solid rgba(51, 122, 183, 0.5);
     }
   </style>
 </head>
@@ -218,7 +217,7 @@
           hour: object.hour_padded,
           temperature: object.temp.metric,
           feelsLike: object.feelslike.metric,
-          pop: parseInt(object.pop / 10, 10) + 10
+          pop: Math.round(object.pop / 10) * 10 //parseInt(object.pop / 10, 10) + 10
         });
         counter++;
       });
