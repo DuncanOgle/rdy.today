@@ -549,8 +549,8 @@
         Getting latest tube information...
     </div>
     <div class="list-group-item text-center {{item.line}}" ng-repeat="item in data.tube">
-        <span class="icon-success" aria-hidden="true" ng-if="item.status == 10">&#x2714;</span>
-        <span class="icon-failure" aria-hidden="true" ng-if="item.status!= 10">&#x2718;</span>
+        <span class="icon" aria-hidden="true" ng-if="item.status == 10">&#x2714;</span>
+        <span class="icon" aria-hidden="true" ng-if="item.status!= 10">&#x2718;</span>
         <div ng-if="item.disruption">
             {{item.disruption}}
         </div>
