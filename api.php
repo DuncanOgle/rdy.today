@@ -92,7 +92,7 @@ if ($type == 'rail') {
     if (isset($data->nrccMessages)) {
         $toReturn = [
             'error'   => 'services not running',
-            'message' => $data->nrccMessages->message
+            'message' => '<li>' . (is_array($data->nrccMessages->message) ? implode('</li><li>', $data->nrccMessages->message) : $data->nrccMessages->message) . '</li>'
         ];
     } else {
         foreach ($data->trainServices as $object) {

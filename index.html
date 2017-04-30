@@ -49,6 +49,10 @@
             border-bottom-left-radius: 4px;
         }
 
+        li {
+            margin-left: 20px;
+        }
+
         .northern {
             background: #000;
             color: #FFF;
@@ -535,7 +539,7 @@
     <div class="list-group-item" ng-if="!data.rail.length && !data.rail.error">
         Getting latest train information...
     </div>
-    <div class="list-group-item" ng-if="data.rail.error" ng-bind-html="data.rail.message | trustHtml"></div>
+    <ul class="list-group-item" ng-if="data.rail.error" ng-bind-html="data.rail.message | trustHtml"></ul>
     <div ng-repeat="item in data.rail" class="list-group-item" ng-if="data.rail.length && !destinationRailFailure">
         {{item.std}}
         <strong ng-if="item.etd !== 'On time'"> ({{item.etd}})</strong>
