@@ -95,15 +95,16 @@ if ($type == 'rail') {
             'message' => '<li>' . (is_array($data->nrccMessages->message) ? implode('</li><li>', $data->nrccMessages->message) : $data->nrccMessages->message) . '</li>'
         ];
     } else {
-        foreach ($data->trainServices as $object) {
+//        die(json_encode($data));
+        foreach ($data->trainServices->service as $object) {
             $toReturn[] = [
-                'from'         => $object->origin[0]->locationName,
-                'to'           => $object->destination[0]->locationName,
+                'from'         => $object->origin->location->locationName,
+                'to'           => $object->destination->location->locationName,
                 'std'          => $object->std,
                 'etd'          => $object->etd,
-                'platform'     => $object->platform,
-                'cancelReason' => $object->cancelReason,
-                'delayReason'  => $object->delayReason
+                'platform'     => @$object->platform ?: '',
+                'cancelReason' => @$object->cancelReason ?: '',
+                'delayReason'  => @$object->delayReason ?: ''
             ];
         };
     }
@@ -170,6 +171,7 @@ function xmlToJson($string)
 {
 //    $string = preg_replace('/<[a-zA-Z0-9]*:/i', "<", $string);
     $string = str_ireplace("lt4:", "", $string);
+    $string = str_ireplace("lt5:", "", $string);
     $string = str_ireplace("lt:", "", $string);
     $data = XML2Array::createArray($string);
 
