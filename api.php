@@ -45,7 +45,8 @@ if ($type == 'weather') {
             'hour'        => $object->FCTTIME->hour_padded,
             'temperature' => $object->temp->metric,
             'feelsLike'   => $object->feelslike->metric,
-            'pop'         => $object->pop //round($object->pop / 10) * 10
+            'pop'         => $object->pop, //round($object->pop / 10) * 10
+            'condition'   => $object->condition
         ];
         $counter++;
     };
@@ -69,7 +70,8 @@ if ($type == 'geoWeather') {
             'hour'        => $object->FCTTIME->hour_padded,
             'temperature' => $object->temp->metric,
             'feelsLike'   => $object->feelslike->metric,
-            'pop'         => $object->pop //round($object->pop / 10) * 10
+            'pop'         => $object->pop, //round($object->pop / 10) * 10
+            'condition'   => $object->condition
         ];
         $counter++;
     };
@@ -140,28 +142,25 @@ function makeRequest()
     ';
 
     $headers = [
-//        "Host: api3.lumesse-talenthub.com",
         "Content-type: text/xml;charset=\"utf-8\"",
         "Accept: text/xml",
-//        "SOAPAction: ''",
         "Content-length: " . strlen($requestXML),
     ];
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    // http://rdy.today.dev/openldbws/error.htm?aspxerrorpath=/OpenLDBWS/wsdl.aspx
     curl_setopt($ch, CURLOPT_URL, "https://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb9.asmx");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//    curl_setopt($ch, CURLOPT_USERPWD, $this->username . ":" . $this->password);
-//    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
     curl_setopt($ch, CURLOPT_TIMEOUT, 120);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $requestXML);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     if (($response = curl_exec($ch)) === false) {
-        die("fail");
-//        throw new BadRequestException("Error making request: " . curl_error($ch));
+        die(json_encode([
+            'error'   => 'could not get data',
+            'message' => "Couldn't get data"
+        ]));
     }
 
     return xmlToJson($response);
@@ -169,10 +168,10 @@ function makeRequest()
 
 function xmlToJson($string)
 {
-//    $string = preg_replace('/<[a-zA-Z0-9]*:/i', "<", $string);
-    $string = str_ireplace("lt4:", "", $string);
-    $string = str_ireplace("lt5:", "", $string);
-    $string = str_ireplace("lt:", "", $string);
+//    $string = str_ireplace("lt4:", "", $string);
+//    $string = str_ireplace("lt5:", "", $string);
+//    $string = str_ireplace("lt:", "", $string);
+    $string = preg_replace("/lt[0-9]*?:/i", "", $string);
     $data = XML2Array::createArray($string);
 
     $json = json_encode($data['soap:Envelope']['soap:Body']['GetDepartureBoardResponse']['GetStationBoardResult']);

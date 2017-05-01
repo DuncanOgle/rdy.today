@@ -1,0 +1,10 @@
+{
+  "lang": "en",
+  "background_color": "#ffffff",
+  "theme_color": "#FFFFFF",
+  "name": "Rdy.Today",
+  "short_name": "Rdy.Today",
+  "display": "standalone",
+  "icons": [],
+  "orientation": "portrait"
+}
