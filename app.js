@@ -13,6 +13,10 @@ app.controller('HomeController', ['$scope', 'Tube', 'Weather', 'NationalRail', '
 
     $scope.geoLocationFailure = false;
     $scope.destinationRailFailure = false;
+    $scope.expanded = {
+        trains: false,
+        weather: false
+    };
 
     Tube.get().then(function (response) {
         $scope.data.tube = response.data;
@@ -26,7 +30,7 @@ app.controller('HomeController', ['$scope', 'Tube', 'Weather', 'NationalRail', '
     });
 
     Geo.get().then(function success(response) {
-        Weather.getCoords(response).then(function (response) {
+        Weather.get(response).then(function (response) {
             $scope.data.weather = response.data;
         });
     }, function failure() {
@@ -98,19 +102,20 @@ app.factory('Geo', ['$q', function ($q) {
 
 app.factory('Weather', ['$http', function ($http) {
     return {
-        get: function () {
-            return $http.get('/api.php?type=weather');
-        },
-        getCoords: function (position) {
-            console.log(position);
+        get: function (position) {
+            var params = {
+                type: 'weather'
+            };
+
+            if (position) {
+                params.lat = position.lat;
+                params.lon = position.lon;
+            }
+
             return $http({
                 url: '/api.php',
                 method: 'GET',
-                params: {
-                    type: 'geoWeather',
-                    lat: position.lat,
-                    lon: position.lon
-                }
+                params: params
             });
         }
     };

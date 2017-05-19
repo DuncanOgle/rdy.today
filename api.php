@@ -10,7 +10,7 @@ header('Content-type: application/json');
 
 $type = $_GET['type'];
 
-if (!in_array($type, ['tube', 'rail', 'weather', 'geoWeather'])) {
+if (!in_array($type, ['tube', 'rail', 'weather'])) {
     http_response_code(400);
     return 'unknown type';
 }
@@ -32,31 +32,9 @@ if ($type == 'tube') {
 }
 
 if ($type == 'weather') {
-    $data = json_decode(file_get_contents('http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/51.4651295,-0.0121473.json'));
+    $lat = @$_GET['lat'] ?: 51.4651295;
+    $lon = @$_GET['lon'] ?: -0.0121473;
 
-    $counter = 0;
-    $toReturn = [];
-
-    foreach ($data->hourly_forecast as $object) {
-        if ($counter >= 12) {
-            break;
-        }
-        $toReturn[] = [
-            'hour'        => $object->FCTTIME->hour_padded,
-            'temperature' => $object->temp->metric,
-            'feelsLike'   => $object->feelslike->metric,
-            'pop'         => $object->pop, //round($object->pop / 10) * 10
-            'condition'   => $object->condition
-        ];
-        $counter++;
-    };
-
-    die(json_encode($toReturn));
-}
-
-if ($type == 'geoWeather') {
-    $lat = $_GET['lat'];
-    $lon = $_GET['lon'];
     $data = json_decode(file_get_contents("http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/$lat,$lon.json"));
 
     $counter = 0;
@@ -92,14 +70,12 @@ if ($type == 'rail') {
     $toReturn = [];
 
     if (isset($data->nrccMessages)) {
-        $toReturn = [
-            'error'   => 'services not running',
-            'message' => '<li>' . (is_array($data->nrccMessages->message) ? implode('</li><li>', $data->nrccMessages->message) : $data->nrccMessages->message) . '</li>'
-        ];
-    } else {
+        $toReturn['messages'] = is_array($data->nrccMessages->message) ? $data->nrccMessages->message : [$data->nrccMessages->message];
+    }
+    if (!empty($data->trainServices)) {
 //        die(json_encode($data));
         foreach ($data->trainServices->service as $object) {
-            $toReturn[] = [
+            $toReturn['times'][] = [
                 'from'         => $object->origin->location->locationName,
                 'to'           => $object->destination->location->locationName,
                 'std'          => $object->std,

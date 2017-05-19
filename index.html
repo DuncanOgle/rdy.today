@@ -18,11 +18,13 @@
   <div class="content" ng-class="{loaded:loaded}">
     <h4>Next trains to London Bridge from Lewisham</h4>
     <div class="list-group">
-      <div class="list-group-item" ng-if="!data.rail.length && !data.rail.error">
+      <div class="list-group-item" ng-if="!data.rail">
         Getting latest train information...
       </div>
-      <ul class="list-group-item" ng-if="data.rail.error" ng-bind-html="data.rail.message | trustHtml"></ul>
-      <div ng-repeat="item in data.rail" class="list-group-item" ng-if="data.rail.length && !destinationRailFailure">
+      <ul class="list-group-item" ng-if="data.rail.message">
+        <li ng-repeat="message in data.rail.message" ng-bind-html="message"></li>
+      </ul>
+      <div ng-repeat="item in data.rail.times" class="list-group-item" ng-if="data.rail.times.length">
         {{item.std}}
         <strong ng-if="item.etd !== 'On time'"> ({{item.etd}})</strong>
         <span>/ platform {{item.platform || 'unknown'}}</span>
@@ -43,7 +45,11 @@
       </div>
     </div>
 
-    <h4>Weather</h4>
+    <h4>
+      Weather
+      <span ng-if="data.weather.length && !geoLocationFailure"> for your location</span>
+      <span ng-if="data.weather.length && geoLocationFailure"> for London</span>
+    </h4>
     <div class="list-group">
       <div class="list-group-item" ng-if="!data.weather.length && !geoLocationFailure">
         Getting weather for your current location...
