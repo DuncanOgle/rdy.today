@@ -19,59 +19,36 @@ app.controller('HomeController', ['$scope', 'Tube', 'Weather', 'NationalRail', '
     };
 
     Tube.get().then(function (response) {
-        $scope.data.tube = response.data;
+        $scope.data.tube = response.data.data;
     });
-    NationalRail.get().then(function (response) {
-        if (response.data.error) {
-            $scope.destinationRailFailure = true;
-        }
 
-        $scope.data.rail = response.data;
+    Geo.get().then(function success(response) {
+        NationalRail.get(response).then(function (response) {
+            $scope.data.rail = response.data.data;
+        });
+    }, function failure() {
+        $scope.geoLocationFailure = true;
+        NationalRail.get().then(function (response) {
+            $scope.data.rail = response.data.data;
+        });
     });
 
     Geo.get().then(function success(response) {
         Weather.get(response).then(function (response) {
-            $scope.data.weather = response.data;
+            $scope.data.weather = response.data.data;
         });
     }, function failure() {
         $scope.geoLocationFailure = true;
         Weather.get().then(function (response) {
-            $scope.data.weather = response.data;
+            $scope.data.weather = response.data.data;
         });
     });
 }]);
 
 app.factory('Tube', ['$http', function ($http) {
-    var severityMap = [
-        "Special Service",
-        "Closed",
-        "Suspended",
-        "Part Suspended",
-        "Planned Closure",
-        "Part Closure",
-        "Severe Delays",
-        "Reduced Service",
-        "Bus Service",
-        "Minor Delays",
-        "Good Service",
-        "Part Closed",
-        "Exist Only",
-        "No Step Free Access",
-        "Change of frequency",
-        "Diverted",
-        "Not Running",
-        "Issues Reported",
-        "No Issues",
-        "Information",
-        "Service Closed"
-    ];
-
     return {
         get: function () {
-            return $http.get('/api.php?type=tube');
-        },
-        statusToText: function (level) {
-            return severityMap[level];
+            return $http.get('/api/tube');
         }
     };
 }]);
@@ -103,34 +80,27 @@ app.factory('Geo', ['$q', function ($q) {
 app.factory('Weather', ['$http', function ($http) {
     return {
         get: function (position) {
-            var params = {
-                type: 'weather'
-            };
+            var coords = '';
 
             if (position) {
-                params.lat = position.lat;
-                params.lon = position.lon;
+                coords = position.lat + ',' + position.lon;
             }
 
-            return $http({
-                url: '/api.php',
-                method: 'GET',
-                params: params
-            });
+            return $http.get('/api/weather/' + coords);
         }
     };
 }]);
 
 app.factory('NationalRail', ['$http', function ($http) {
     return {
-        get: function () {
-            return $http({
-                url: '/api.php',
-                method: 'GET',
-                params: {
-                    type: 'rail'
-                }
-            });
+        get: function (position) {
+            var coords = '';
+
+            if (position) {
+                coords = '/' + position.lat + ',' + position.lon;
+            }
+
+            return $http.get('/api/rail/LEW/LBG' + coords);
         }
     };
 }]);
