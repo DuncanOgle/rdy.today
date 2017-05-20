@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Acme;
 /**
  * Created by PhpStorm.
  * User: duncan
@@ -83,6 +85,8 @@
  *
  *
  */
+use DOMDocument;
+use Exception;
 
 /**
  * XML2Array: A class to convert XML to array in PHP
