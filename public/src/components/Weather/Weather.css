@@ -1,0 +1,430 @@
+.weather {
+  padding: 5px 0;
+}
+
+.weather .rain {
+  position: relative;
+  z-index: 1;
+  padding: 0 5px;
+}
+
+.rain:first-of-type::before {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.rain:last-of-type::before {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.rain::before {
+  background: rgba(51, 122, 183, 0.3);
+  content: '';
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-right: 1px solid rgba(51, 122, 183, 0.5)
+}
+
+.rain-1:before {
+  width: 1%
+}
+
+.rain-2:before {
+  width: 2%
+}
+
+.rain-3:before {
+  width: 3%
+}
+
+.rain-4:before {
+  width: 4%
+}
+
+.rain-5:before {
+  width: 5%
+}
+
+.rain-6:before {
+  width: 6%
+}
+
+.rain-7:before {
+  width: 7%
+}
+
+.rain-8:before {
+  width: 8%
+}
+
+.rain-9:before {
+  width: 9%
+}
+
+.rain-10:before {
+  width: 10%
+}
+
+.rain-11:before {
+  width: 11%
+}
+
+.rain-12:before {
+  width: 12%
+}
+
+.rain-13:before {
+  width: 13%
+}
+
+.rain-14:before {
+  width: 14%
+}
+
+.rain-15:before {
+  width: 15%
+}
+
+.rain-16:before {
+  width: 16%
+}
+
+.rain-17:before {
+  width: 17%
+}
+
+.rain-18:before {
+  width: 18%
+}
+
+.rain-19:before {
+  width: 19%
+}
+
+.rain-20:before {
+  width: 20%
+}
+
+.rain-21:before {
+  width: 21%
+}
+
+.rain-22:before {
+  width: 22%
+}
+
+.rain-23:before {
+  width: 23%
+}
+
+.rain-24:before {
+  width: 24%
+}
+
+.rain-25:before {
+  width: 25%
+}
+
+.rain-26:before {
+  width: 26%
+}
+
+.rain-27:before {
+  width: 27%
+}
+
+.rain-28:before {
+  width: 28%
+}
+
+.rain-29:before {
+  width: 29%
+}
+
+.rain-30:before {
+  width: 30%
+}
+
+.rain-31:before {
+  width: 31%
+}
+
+.rain-32:before {
+  width: 32%
+}
+
+.rain-33:before {
+  width: 33%
+}
+
+.rain-34:before {
+  width: 34%
+}
+
+.rain-35:before {
+  width: 35%
+}
+
+.rain-36:before {
+  width: 36%
+}
+
+.rain-37:before {
+  width: 37%
+}
+
+.rain-38:before {
+  width: 38%
+}
+
+.rain-39:before {
+  width: 39%
+}
+
+.rain-40:before {
+  width: 40%
+}
+
+.rain-41:before {
+  width: 41%
+}
+
+.rain-42:before {
+  width: 42%
+}
+
+.rain-43:before {
+  width: 43%
+}
+
+.rain-44:before {
+  width: 44%
+}
+
+.rain-45:before {
+  width: 45%
+}
+
+.rain-46:before {
+  width: 46%
+}
+
+.rain-47:before {
+  width: 47%
+}
+
+.rain-48:before {
+  width: 48%
+}
+
+.rain-49:before {
+  width: 49%
+}
+
+.rain-50:before {
+  width: 50%
+}
+
+.rain-51:before {
+  width: 51%
+}
+
+.rain-52:before {
+  width: 52%
+}
+
+.rain-53:before {
+  width: 53%
+}
+
+.rain-54:before {
+  width: 54%
+}
+
+.rain-55:before {
+  width: 55%
+}
+
+.rain-56:before {
+  width: 56%
+}
+
+.rain-57:before {
+  width: 57%
+}
+
+.rain-58:before {
+  width: 58%
+}
+
+.rain-59:before {
+  width: 59%
+}
+
+.rain-60:before {
+  width: 60%
+}
+
+.rain-61:before {
+  width: 61%
+}
+
+.rain-62:before {
+  width: 62%
+}
+
+.rain-63:before {
+  width: 63%
+}
+
+.rain-64:before {
+  width: 64%
+}
+
+.rain-65:before {
+  width: 65%
+}
+
+.rain-66:before {
+  width: 66%
+}
+
+.rain-67:before {
+  width: 67%
+}
+
+.rain-68:before {
+  width: 68%
+}
+
+.rain-69:before {
+  width: 69%
+}
+
+.rain-70:before {
+  width: 70%
+}
+
+.rain-71:before {
+  width: 71%
+}
+
+.rain-72:before {
+  width: 72%
+}
+
+.rain-73:before {
+  width: 73%
+}
+
+.rain-74:before {
+  width: 74%
+}
+
+.rain-75:before {
+  width: 75%
+}
+
+.rain-76:before {
+  width: 76%
+}
+
+.rain-77:before {
+  width: 77%
+}
+
+.rain-78:before {
+  width: 78%
+}
+
+.rain-79:before {
+  width: 79%
+}
+
+.rain-80:before {
+  width: 80%
+}
+
+.rain-81:before {
+  width: 81%
+}
+
+.rain-82:before {
+  width: 82%
+}
+
+.rain-83:before {
+  width: 83%
+}
+
+.rain-84:before {
+  width: 84%
+}
+
+.rain-85:before {
+  width: 85%
+}
+
+.rain-86:before {
+  width: 86%
+}
+
+.rain-87:before {
+  width: 87%
+}
+
+.rain-88:before {
+  width: 88%
+}
+
+.rain-89:before {
+  width: 89%
+}
+
+.rain-90:before {
+  width: 90%
+}
+
+.rain-91:before {
+  width: 91%
+}
+
+.rain-92:before {
+  width: 92%
+}
+
+.rain-93:before {
+  width: 93%
+}
+
+.rain-94:before {
+  width: 94%
+}
+
+.rain-95:before {
+  width: 95%
+}
+
+.rain-96:before {
+  width: 96%
+}
+
+.rain-97:before {
+  width: 97%
+}
+
+.rain-98:before {
+  width: 98%
+}
+
+.rain-99:before {
+  width: 99%
+}
+
+.rain-100:before {
+  width: 100%
+}

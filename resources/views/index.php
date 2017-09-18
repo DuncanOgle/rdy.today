@@ -1,68 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="app">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Rdy.Today</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0, user-scalable=no">
-  <base href="/">
-  <link rel="stylesheet" type="text/css" href="/style.min.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rdy.today </title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FFFFFF">
+
+  <link rel="stylesheet" href="dist/style.css">
 </head>
-<body ng-controller="HomeController">
-  <div class="preloader" ng-class="{loaded:loaded}">
-    <h1>Rdy.today</h1>
-    <p>Loading...</p>
-  </div>
-  <div class="content" ng-class="{loaded:loaded}">
-    <h4>Next trains to London Bridge from Lewisham</h4>
-    <div class="list-group">
-      <div class="list-group-item" ng-if="!data.rail">
-        Getting latest train information...
-      </div>
-      <ul class="list-group-item" ng-if="data.rail.message">
-        <li ng-repeat="message in data.rail.message" ng-bind-html="message"></li>
-      </ul>
-      <div ng-repeat="item in data.rail.times" class="list-group-item" ng-if="data.rail.times.length">
-        {{item.std}}
-        <strong ng-if="item.etd !== 'On time'"> ({{item.etd}})</strong>
-        <span>/ platform {{item.platform || 'unknown'}}</span>
-      </div>
-    </div>
-
-    <h4>Tube Status</h4>
-    <div class="list-group">
-      <div class="list-group-item" ng-if="!data.tube.length">
-        Getting latest tube information...
-      </div>
-      <div class="list-group-item text-center {{item.line}}" ng-repeat="item in data.tube">
-        <!--<span class="icon" aria-hidden="true" ng-if="item.status == 10">&#x2714;</span>-->
-        <span class="icon" aria-hidden="true" ng-if="item.status!= 10">&#x2718;</span>
-        <div ng-if="item.disruption">
-          {{item.disruption}}
-        </div>
-      </div>
-    </div>
-
-    <h4>
-      Weather
-      <span ng-if="data.weather.length && !geoLocationFailure"> for your location</span>
-      <span ng-if="data.weather.length && geoLocationFailure"> for London</span>
-    </h4>
-    <div class="list-group">
-      <div class="list-group-item" ng-if="!data.weather.length && !geoLocationFailure">
-        Getting weather for your current location...
-      </div>
-      <div class="list-group-item" ng-if="!data.weather.length && geoLocationFailure">
-        Couldn't get your current location, getting weather for London...
-      </div>
-      <div class="list-group-item rain rain-{{item.pop}}" ng-repeat="item in data.weather">
-        {{item.hour}}:00 {{item.feelsLike}}° / {{item.condition}}
-      </div>
-    </div>
-  </div>
+<body>
+<div class="container">
+  <div id="main"></div>
+</div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="/app.min.js"></script>
+<script src="/dist/vendor.bundle.js"></script>
+<script src="/dist/App.bundle.js"></script>
 </html>
