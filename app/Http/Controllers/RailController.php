@@ -14,7 +14,6 @@ class RailController extends Controller
      */
     public function __construct()
     {
-        //
     }
 
     public function getRail($from, $to)
@@ -134,6 +133,11 @@ class RailController extends Controller
             };
         }
 
+        $toReturn['meta'] = [
+            'to' => $to,
+            'from' => $from
+        ];
+
         return $toReturn;
     }
 
@@ -183,9 +187,6 @@ class RailController extends Controller
 
     private function xmlToJson($string)
     {
-//    $string = str_ireplace("lt4:", "", $string);
-//    $string = str_ireplace("lt5:", "", $string);
-//    $string = str_ireplace("lt:", "", $string);
         $string = preg_replace("/lt[0-9]*?:/i", "", $string);
         $data = XML2Array::createArray($string);
 

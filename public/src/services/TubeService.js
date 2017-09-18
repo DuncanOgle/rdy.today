@@ -5,7 +5,7 @@
 class TubeService {
   static getTubeData() {
     return new Promise((resolve, reject) => {
-      fetch('https://rdy.today/api/tube')
+      fetch('/api/tube')
         .then((response) => {
           resolve(response.json());
         })

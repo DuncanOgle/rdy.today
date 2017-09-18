@@ -2,22 +2,12 @@
 
 namespace App\Acme;
 /**
- * Created by PhpStorm.
- * User: duncan
- * Date: 21/04/2015
- * Time: 09:48
- *
- *
  * *****************************************************************
  *
  * This is a class that will take an XML document, and converts it into an array
  * Its a lot better than simplexml_load_string as it can handle multiple tags of
  * the same name. It has also been designed to make all tags lowercase to help
  * reduce the chances for naming errors
- *
- * Its also a bit cleaner than Dusan's XmlParser, which was designed to read
- * large XML documents (500mb+) in less than 10mb of memory - Don't really
- * need to worry about that with TJP2...
  *
  * https://github.com/openlss/lib-array2xml
  *
@@ -53,37 +43,6 @@ namespace App\Acme;
  * 'value' => 'value
  *
  * -----------------------------------------------------------------
- *
- * Also, XML sucks major balls
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
  */
 use DOMDocument;
 use Exception;
