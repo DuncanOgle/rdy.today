@@ -7,6 +7,7 @@ class Rail extends React.Component {
   componentWillMount() {
     this.setState({
       rail: null,
+      limit: 6,
     });
   }
 
@@ -24,8 +25,41 @@ class Rail extends React.Component {
     RailService.getRailData(to, from, coords).then((data) => {
       this.setState({
         rail: data.data,
+        latestTrain: this.getNextAvailableTrain(data.data.times),
       });
     });
+  }
+
+  /**
+   * Determine time to display
+   * @param {Object} trainTimes
+   */
+  getNextAvailableTrain(trainTimes) {
+    const toReturn = {
+      time: '',
+      issue: '',
+      platform: '',
+    };
+
+    const availableTrains = trainTimes.filter(element => !element.cancelReason);
+
+    if (availableTrains[0].etd !== 'On time') {
+      toReturn.time = availableTrains[0].etd;
+    } else {
+      toReturn.time = availableTrains[0].std;
+    }
+
+    if (availableTrains[0].delayReason || availableTrains[0].etd !== 'On time') {
+      toReturn.issue = availableTrains[0].delayReason || 'Running late';
+    }
+
+    if (availableTrains[0].platform) {
+      toReturn.platform += availableTrains[0].platform;
+    } else {
+      toReturn.platform += '?';
+    }
+
+    return toReturn;
   }
 
   render() {
@@ -35,26 +69,39 @@ class Rail extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <h2>Rail</h2>
-          <ul>
-            {this.state.rail.messages.map(row => (
-              <li dangerouslySetInnerHTML={{ __html: row }} />
-            ))}
-          </ul>
-          <div className={styles.rail}>
-            {this.state.rail.times.map(row => (
-              <p key={`${row.std}${row.etd}${row.platform}${row.from}${row.to}`}>
-                {row.std} ({row.etd}) / Platform {row.platform || 'unknown'}
-              </p>
-            ))}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>{this.state.rail.meta.fromName}</h2>
+              <h2>{this.state.rail.meta.toName}</h2>
+              <h3 className={styles.nextTrain}>
+                {this.state.latestTrain.time} ({this.state.latestTrain.platform})
+              </h3>
+              <a href="#" className={styles.viewMore}>{this.state.latestTrain.issue}</a>
+            </div>
+            <div className={styles.rail}>
+              {this.state.rail.messages.map(row => (
+                <ul><li dangerouslySetInnerHTML={{ __html: row }} /></ul>
+              ))}
+            </div>
+            <div className={styles.rail}>
+              {this.state.rail.times.slice(0, this.state.limit).map(row => (
+                <p key={`${row.std}${row.etd}${row.platform}${row.from}${row.to}`}>
+                  {row.std} ({row.etd}) / Platform {row.platform || 'unknown'}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       );
     } else {
       toRender = (
-        <div className={styles.rail}>
-          <h2>Rail</h2>
-          Loading...
+        <div>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>Rail</h2>
+            </div>
+            Loading...
+          </div>
         </div>
       );
     }

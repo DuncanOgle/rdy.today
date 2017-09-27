@@ -53,32 +53,41 @@ class Weather extends React.Component {
 
     if (hasData) {
       toRender = (
-        <div className={styles.weather}>
-          <h2>Weather</h2>
-          {/* Limit to 6 hours */}
-          {this.state.weather.slice(0, this.state.limit).map(row => (
-            <p key={row.hour} className={[styles.rain, styles[`rain-${row.pop}`]].join(' ')}>
-              {row.hour < 10 ? `0${row.hour}` : row.hour}:00
-              - ☀️ {row.feelsLike}°
-              / 💦 {row.pop}%
-              / 💨 {row.windSpeed}mph
-              / {row.condition}
-            </p>
-          ))}
-          <a
-            href=""
-            className={this.state.limit === 24 ? globalStyles.hidden : ''}
-            onClick={event => this.increaseLimit(event)}
-          >
-            Further ahead &gt;
-          </a>
+        <div>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>Weather</h2>
+              <a
+                href=""
+                className={this.state.limit === 24 ? globalStyles.hidden : styles.viewMore}
+                onClick={event => this.increaseLimit(event)}
+              >
+              Further ahead &gt;
+              </a>
+            </div>
+            <div className={styles.weather}>
+              {this.state.weather.slice(0, this.state.limit).map(row => (
+                <p key={row.hour} className={[styles.rain, styles[`rain-${row.pop}`]].join(' ')}>
+                  {row.hour < 10 ? `0${row.hour}` : row.hour}:00
+                  - ☀️ {row.feelsLike}°
+                  / 💦 {row.pop}%
+                  / 💨 {row.windSpeed}mph
+                  / {row.condition}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
       );
     } else {
       toRender = (
-        <div className={styles.weather}>
-          <h2>Weather</h2>
-          Loading...
+        <div>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>Weather</h2>
+            </div>
+            Loading...
+          </div>
         </div>
       );
     }

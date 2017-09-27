@@ -53,9 +53,9 @@ class RailController extends Controller
         $split = explode(',', $coords);
         $distances = [];
 
-        foreach (RailData::$lines as $line) {
-            if (mb_strtolower($line['key']) == mb_strtolower($from) || mb_strtolower($line['key']) == mb_strtolower($to)) {
-                $distances[$line['key']] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
+        foreach (RailData::$lines as $key => $line) {
+            if (mb_strtolower($key) == mb_strtolower($from) || mb_strtolower($key) == mb_strtolower($to)) {
+                $distances[$key] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
             }
         }
 
@@ -70,8 +70,8 @@ class RailController extends Controller
         $split = explode(',', $coords);
         $distances = [];
 
-        foreach (RailData::$lines as $line) {
-            $distances[$line['key']] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
+        foreach (RailData::$lines as $key => $line) {
+            $distances[$key] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
         }
 
         // Sort
@@ -135,7 +135,9 @@ class RailController extends Controller
 
         $toReturn['meta'] = [
             'to' => $to,
-            'from' => $from
+            'toName' => RailData::$lines[$to]['title'],
+            'from' => $from,
+            'fromName' => RailData::$lines[$from]['title']
         ];
 
         return $toReturn;

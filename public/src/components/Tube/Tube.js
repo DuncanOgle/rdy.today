@@ -25,21 +25,27 @@ class Tube extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <h2>Tube</h2>
-          <div className={styles.tube}>
-            {this.state.tube.map(row => (
-              <p key={row.line} className={[styles.line, styles[row.line]].join(' ')}>
-                {row.disruption}
-              </p>
-            ))}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>Tube</h2>
+            </div>
+            <div className={styles.tube}>
+              {this.state.tube.map(row => (
+                <p key={row.line} className={[styles.line, styles[row.line]].join(' ')}>
+                  {row.disruption}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       );
     } else {
       toRender = (
         <div>
-          <h2>Tube</h2>
-          <div>
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2>Tube</h2>
+            </div>
             Loading...
           </div>
         </div>

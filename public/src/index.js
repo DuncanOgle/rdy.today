@@ -11,7 +11,9 @@ function Root() {
     <div className={styles.container}>
       <h1 className={styles.title}>Rdy.Today</h1>
       <Weather />
+      <br />
       <Tube />
+      <br />
       <Rail />
     </div>
   );

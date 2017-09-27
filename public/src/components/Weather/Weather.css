@@ -1,5 +1,29 @@
 .weather {
-  padding: 5px 0;
+  border-radius: 10px;
+  background: #E5E9F2;
+}
+
+.card {
+  background: #EFF2F7;
+  padding: 10px;
+  color: #3C4858;
+  border-radius: 10px;
+}
+
+.card h2 {
+  font-weight: 700;
+  color: #3C4858;
+}
+
+.card .cardHeader {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.card .viewMore {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .weather .rain {
@@ -9,13 +33,13 @@
 }
 
 .rain:first-of-type::before {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .rain:last-of-type::before {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .rain::before {
@@ -27,6 +51,10 @@
   left: 0;
   z-index: -1;
   border-right: 1px solid rgba(51, 122, 183, 0.5)
+}
+
+.rain-0:before {
+  display: none;
 }
 
 .rain-1:before {
