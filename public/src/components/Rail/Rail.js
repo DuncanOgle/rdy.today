@@ -62,6 +62,20 @@ class Rail extends React.Component {
     return toReturn;
   }
 
+  getStatus(row) {
+    return row.cancelReason ? 'Cancelled' : row.etd;
+  }
+
+  getStatusText(row) {
+    let toReturn = '';
+
+    if (row.cancelReason || row.delayReason) {
+      toReturn = `<br><small>${row.cancelReason || row.delayReason}</small>`;
+    }
+
+    return toReturn;
+  }
+
   render() {
     const hasData = !!this.state.rail;
     let toRender = null;
@@ -86,7 +100,8 @@ class Rail extends React.Component {
             <div className={styles.rail}>
               {this.state.rail.times.slice(0, this.state.limit).map(row => (
                 <p key={`${row.std}${row.etd}${row.platform}${row.from}${row.to}`}>
-                  {row.std} ({row.etd}) / Platform {row.platform || 'unknown'}
+                  {row.std} ({this.getStatus(row)}) / Platform {row.platform || 'unknown'}
+                  <span dangerouslySetInnerHTML={{ __html: this.getStatusText(row) }} />
                 </p>
               ))}
             </div>
