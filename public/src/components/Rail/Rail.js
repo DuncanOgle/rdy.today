@@ -76,7 +76,7 @@ class Rail extends React.Component {
               <h3 className={styles.nextTrain}>
                 {this.state.latestTrain.time} ({this.state.latestTrain.platform})
               </h3>
-              <a href="#" className={styles.viewMore}>{this.state.latestTrain.issue}</a>
+              <span className={styles.viewMore}>{this.state.latestTrain.issue}</span>
             </div>
             <div className={styles.rail}>
               {this.state.rail.messages.map(row => (

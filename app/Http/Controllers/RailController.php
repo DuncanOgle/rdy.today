@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Acme\RailData;
 use App\Acme\XML2Array;
+use Illuminate\Support\Facades\Cache;
 
 class RailController extends Controller
 {
@@ -28,7 +29,10 @@ class RailController extends Controller
             $to = $this->findClosestRailStation($to);
         }
 
-        return $this->successResponse($this->getRailData($from, $to));
+        $results = Cache::remember("rail-$to-$from", 1, function() use ($to, $from) {
+            return $this->getRailData($from, $to);
+        });
+        return $this->successResponse($results);
     }
 
     public function getNearestRail($from, $to, $coords)
@@ -45,7 +49,10 @@ class RailController extends Controller
 
         $data = $this->determineOrderFromCoords($from, $to, $coords);
 
-        return $this->successResponse($this->getRailData($data[0], $data[1]));
+        $results = Cache::remember("rail-$data[0]-$$data[1]", 1, function() use ($data) {
+            return $this->getRailData($data[0], $data[1]);
+        });
+        return $this->successResponse($results);
     }
 
     private function determineOrderFromCoords($from, $to, $coords)

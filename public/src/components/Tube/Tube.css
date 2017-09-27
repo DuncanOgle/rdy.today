@@ -44,7 +44,8 @@
 }
 
 .central {
-  background: #dc241f
+  background: #dc241f;
+  color: #FFF
 }
 
 .circle {
@@ -62,7 +63,6 @@
 
 .jubilee {
   background: #6a7278;
-  color: #FFF
 }
 
 .metropolitan {
@@ -84,7 +84,8 @@
 }
 
 .london-overground {
-  background: #e86a10
+  background: #e86a10;
+  color: #FFF
 }
 
 .dlr {
