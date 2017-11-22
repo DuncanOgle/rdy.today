@@ -13,13 +13,20 @@ class Weather extends React.Component {
   }
 
   componentDidMount() {
-    GeoService.getGeoPosition()
-    .then((coords) => {
-      this.getWeatherData(`${coords.lat},${coords.lon}`);
-    })
-    .catch(() => {
-      this.getWeatherData();
-    });
+    const data = this.props.data;
+    console.log(data);
+
+    if (data.tryLocation) {
+      GeoService.getGeoPosition()
+      .then((coords) => {
+        this.getWeatherData(`${coords.lat},${coords.lon}`);
+      })
+      .catch(() => {
+        this.getWeatherData(data.location || '');
+      });
+    } else {
+      this.getWeatherData(data.location || '');
+    }
   }
 
   /**
@@ -54,8 +61,8 @@ class Weather extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>Weather</h2>
               <a
                 href=""
@@ -82,8 +89,8 @@ class Weather extends React.Component {
     } else {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>Weather</h2>
             </div>
             Loading...

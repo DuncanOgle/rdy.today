@@ -12,25 +12,8 @@
   border-bottom-right-radius: 10px;
 }
 
-.card {
-  background: #EFF2F7;
-  padding: 10px;
-  color: #3C4858;
-  border-radius: 10px;
-}
-
-.card h2 {
-  font-weight: 700;
-  color: #3C4858;
-}
-
-.card .cardHeader {
-  position: relative;
-  margin-bottom: 10px;
-}
-
 .line {
-  padding: 5px;
+  padding: 10px;
 }
 
 .northern {

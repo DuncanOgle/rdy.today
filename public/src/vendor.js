@@ -8,5 +8,6 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
+import PropTypes from 'prop-types';
 import 'babel-polyfill';
 import 'whatwg-fetch';

@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './Rail.css';
+import globalStyles from '../../../styles/main.css';
 import RailService from '../../services/RailService';
 import GeoService from '../../services/GeoService';
+import RailMessages from '../RailMessages/RailMessages';
 
 class Rail extends React.Component {
   componentWillMount() {
@@ -12,13 +14,19 @@ class Rail extends React.Component {
   }
 
   componentDidMount() {
-    GeoService.getGeoPosition()
-    .then((coords) => {
-      this.getRailData('LEW', 'LBG', `${coords.lat},${coords.lon}`);
-    })
-    .catch(() => {
-      this.getRailData('LEW', 'LBG');
-    });
+    const data = this.props.data;
+
+    if (data.tryLocation) {
+      GeoService.getGeoPosition()
+      .then((coords) => {
+        this.getRailData(data.from, data.to, `${coords.lat},${coords.lon}`);
+      })
+      .catch(() => {
+        this.getRailData(data.from, data.to);
+      });
+    } else {
+      this.getRailData(data.from, data.to);
+    }
   }
 
   getRailData(to, from, coords) {
@@ -83,20 +91,15 @@ class Rail extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>{this.state.rail.meta.fromName}</h2>
               <h2>{this.state.rail.meta.toName}</h2>
               <h3 className={styles.nextTrain}>
                 {this.state.latestTrain.time} ({this.state.latestTrain.platform})
               </h3>
-              <span className={styles.viewMore}>{this.state.latestTrain.issue}</span>
             </div>
-            <div className={styles.rail}>
-              {this.state.rail.messages.map(row => (
-                <ul><li dangerouslySetInnerHTML={{ __html: row }} /></ul>
-              ))}
-            </div>
+            <RailMessages messages={this.state.rail.messages} />
             <div className={styles.rail}>
               {this.state.rail.times.slice(0, this.state.limit).map(row => (
                 <p key={`${row.std}${row.etd}${row.platform}${row.from}${row.to}`}>
@@ -111,8 +114,8 @@ class Rail extends React.Component {
     } else {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>Rail</h2>
             </div>
             Loading...

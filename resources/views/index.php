@@ -7,7 +7,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FFFFFF">
 
-  <link rel="stylesheet" href="dist/style.css">
+  <style>
+   <?php include('dist/style.css') ?>
+  </style>
 </head>
 <body>
 <div class="container">

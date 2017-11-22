@@ -29,6 +29,8 @@ $app->get('/api/weather/{location}/', 'WeatherController@getGeoWeather');
 
 $app->get('/api/weather/GB/{location}/', 'WeatherController@getCityWeather');
 
+$app->get('/api/rail/search/{query}', 'RailController@search');
+
 $app->get('/api/rail/{from}/{to}', 'RailController@getRail');
 
 $app->get('/api/rail/{from}/{to}/{coords}', 'RailController@getNearestRail');

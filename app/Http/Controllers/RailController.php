@@ -17,6 +17,46 @@ class RailController extends Controller
     {
     }
 
+    public function search($query) {
+        $unsortedArray = [];
+        $query = urldecode(strtolower($query));
+
+        foreach (RailData::$lines as $key => $value) {
+            if (stripos($key, $query) !== false) {
+                similar_text(strtolower($key), $query, $percent);
+
+                $unsortedArray[$key] = array_merge($value, [
+                    "key" => $key,
+                    "score" => $percent
+                ]);
+            } elseif (stripos($value['title'], $query) !== false) {
+                similar_text(strtolower($value['title']), $query, $percent);
+
+                $unsortedArray[$key] = array_merge($value, [
+                    "key" => $key,
+                    "score" => $percent
+                ]);
+            }
+        }
+
+        // function scoreSorter($a, $b) {
+        //     dd($a, $b);
+        //     if ($a['score'] == $b['score']) {
+        //         return 0;
+        //     }
+
+        //     return ($a['score'] < $b['score']) ? -1 : 1;
+        // }
+
+        // usort($unsortedArray, 'scoreSorter');
+
+        $toReturn = array_slice(array_reverse(array_values(array_sort($unsortedArray, function ($value) {
+            return $value['score'];
+        }))), 0, 5);
+
+        return $this->successResponse($toReturn);
+    }
+
     public function getRail($from, $to)
     {
         if (preg_match('/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/', $from)) {

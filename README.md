@@ -155,9 +155,9 @@ Get 24 hours of hourly weather for specific latitude/longitude
 
 ------
 
- GET `https://rdy.today/api/weather/GB/London`
+ GET `https://rdy.today/api/weather/London`
 
-Get 24 hours of hourly weather for specific Country/Location
+Get 24 hours of hourly weather for specific location (UK only)
 
 *Same response format as above*
 

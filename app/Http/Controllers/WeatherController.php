@@ -35,7 +35,7 @@ class WeatherController extends Controller
     public function getCityWeather($location)
     {
         $results = Cache::remember("weather-GB/$location", 1, function() use ($location) {
-            return $this->getWeatherData("GB/" . $location);
+            return $this->getWeatherData($location);
         });
         return $this->successResponse($results);
     }
@@ -44,6 +44,8 @@ class WeatherController extends Controller
     {
         if (is_null($location)) {
             $location = "51.4651295,-0.0121473";
+        } elseif (!strpbrk($location, '0123456789')) {
+            $location = "GB/" . $location;
         }
 
         $data = json_decode(file_get_contents("http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/$location.json"));
@@ -51,7 +53,7 @@ class WeatherController extends Controller
         $counter = 0;
         $toReturn = [];
 
-        foreach ($data->hourly_forecast as $object) {
+        foreach (@$data->hourly_forecast as $object) {
             if ($counter >= 24) {
                 break;
             }
