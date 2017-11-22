@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
+
 class TubeController extends Controller
 {
     var $allowedTubeLines = [
@@ -32,7 +34,10 @@ class TubeController extends Controller
 
     public function getTube()
     {
-        return $this->successResponse($this->getTubeData());
+        $results = Cache::remember('tube', 1, function() {
+            return $this->getTubeData();
+        });
+        return $this->successResponse($results);
     }
 
     public function getSpecificTube($line)
@@ -41,7 +46,10 @@ class TubeController extends Controller
             return $this->failingResponse("Unknown tube line");
         }
 
-        return $this->successResponse($this->getTubeData($line));
+        $results = Cache::remember("tube-$line", 1, function() use ($line) {
+            return $this->getTubeData($line);
+        });
+        return $this->successResponse($results);
     }
 
     function getTubeData($line = null)

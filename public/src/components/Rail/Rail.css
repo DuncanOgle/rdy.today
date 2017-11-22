@@ -1,0 +1,55 @@
+.rail {
+    border-radius: 10px;
+    background: #E5E9F2;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.rail:last-of-type {
+    margin-bottom: 0;
+}
+
+.rail p {
+    padding: 5px 5px;
+    border-bottom: 0;
+}
+
+.rail p:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.rail p:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.card {
+    background: #EFF2F7;
+    padding: 10px;
+    color: #3C4858;
+    border-radius: 10px;
+}
+
+.card h2 {
+    font-weight: 700;
+    color: #3C4858;
+}
+
+.card .cardHeader {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.card .nextTrain {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.card .viewMore {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: #FF7849;
+}

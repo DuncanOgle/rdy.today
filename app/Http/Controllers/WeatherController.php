@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
+
 class WeatherController extends Controller
 {
     /**
@@ -16,17 +18,26 @@ class WeatherController extends Controller
 
     public function getWeather()
     {
-        return $this->successResponse($this->getWeatherData());
+        $results = Cache::remember("weather", 1, function() {
+            return $this->getWeatherData();
+        });
+        return $this->successResponse($results);
     }
 
     public function getGeoWeather($location)
     {
-        return $this->successResponse($this->getWeatherData($location));
+        $results = Cache::remember("weather-$location", 1, function() use ($location) {
+            return $this->getWeatherData($location);
+        });
+        return $this->successResponse($results);
     }
 
     public function getCityWeather($location)
     {
-        return $this->successResponse($this->getWeatherData("GB/" . $location));
+        $results = Cache::remember("weather-GB/$location", 1, function() use ($location) {
+            return $this->getWeatherData("GB/" . $location);
+        });
+        return $this->successResponse($results);
     }
 
     private function getWeatherData($location = null)
