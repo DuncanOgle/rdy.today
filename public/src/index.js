@@ -12,9 +12,9 @@ function Root() {
       <h1 className={styles.title}>Rdy.Today</h1>
       <Weather />
       <br />
-      <Tube />
-      <br />
       <Rail />
+      <br />
+      <Tube />
     </div>
   );
 }

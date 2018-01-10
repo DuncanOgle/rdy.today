@@ -3,7 +3,7 @@
  */
 
 class RailService {
-  static getRailData(from = 'LEW', to = 'LBG', coords = '51.5245104,-0.0863409') {
+  static getRailData(from = 'LEW', to = 'CHX', coords = '') {
     return new Promise((resolve, reject) => {
       fetch(`/api/rail/${from}/${to}${coords ? `/${coords}` : ''}`)
         .then((response) => {
