@@ -1,5 +1,5 @@
 install:
-  - npm install -g codecov instanbul
+  - npm install -g codecov istanbul
 script:
   - cd public
   - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
