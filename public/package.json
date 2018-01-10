@@ -22,6 +22,7 @@
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.29.0",
+    "jest": "^22.0.5",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
@@ -45,9 +46,15 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "watch": "webpack --watch --progress --colors",
-    "production": "webpack -p --progress --colors"
+    "production": "webpack -p --progress --colors",
+    "test": "jest --watchAll",
+    "test-ci": "jest"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/.eslintrc"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }

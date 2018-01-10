@@ -1,0 +1,7 @@
+install:
+  - npm install -g codecov
+script:
+  - cd public
+  - npm i
+  - npm run test-ci
+  - codecov
