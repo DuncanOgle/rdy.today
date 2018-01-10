@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './Rail.css';
+import globalStyles from '../../../styles/main.css';
 import RailService from '../../services/RailService';
 import GeoService from '../../services/GeoService';
+import RailMessages from '../RailMessages/RailMessages';
 
 class Rail extends React.Component {
   componentWillMount() {
@@ -14,52 +16,19 @@ class Rail extends React.Component {
   componentDidMount() {
     GeoService.getGeoPosition()
     .then((coords) => {
-      this.getRailData('LEW', 'LBG', `${coords.lat},${coords.lon}`);
+      this.getRailData('LEW', 'CHX', `${coords.lat},${coords.lon}`);
     })
     .catch(() => {
-      this.getRailData('LEW', 'LBG');
+      this.getRailData('LEW', 'CHX');
     });
   }
 
   getRailData(to, from, coords) {
     RailService.getRailData(to, from, coords).then((data) => {
       this.setState({
-        rail: data.data,
-        latestTrain: this.getNextAvailableTrain(data.data.times),
+        rail: data.data
       });
     });
-  }
-
-  /**
-   * Determine time to display
-   * @param {Object} trainTimes
-   */
-  getNextAvailableTrain(trainTimes) {
-    const toReturn = {
-      time: '',
-      issue: '',
-      platform: '',
-    };
-
-    const availableTrains = trainTimes.filter(element => !element.cancelReason);
-
-    if (availableTrains[0].etd !== 'On time') {
-      toReturn.time = availableTrains[0].etd;
-    } else {
-      toReturn.time = availableTrains[0].std;
-    }
-
-    if (availableTrains[0].delayReason || availableTrains[0].etd !== 'On time') {
-      toReturn.issue = availableTrains[0].delayReason || 'Running late';
-    }
-
-    if (availableTrains[0].platform) {
-      toReturn.platform += availableTrains[0].platform;
-    } else {
-      toReturn.platform += '?';
-    }
-
-    return toReturn;
   }
 
   getStatus(row) {
@@ -83,20 +52,11 @@ class Rail extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
-              <h2>{this.state.rail.meta.fromName}</h2>
-              <h2>{this.state.rail.meta.toName}</h2>
-              <h3 className={styles.nextTrain}>
-                {this.state.latestTrain.time} ({this.state.latestTrain.platform})
-              </h3>
-              <span className={styles.viewMore}>{this.state.latestTrain.issue}</span>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
+              <h2>{this.state.rail.meta.fromName} &rarr;<br /> {this.state.rail.meta.toName}</h2>
             </div>
-            <div className={styles.rail}>
-              {this.state.rail.messages.map(row => (
-                <ul><li dangerouslySetInnerHTML={{ __html: row }} /></ul>
-              ))}
-            </div>
+            <RailMessages messages={this.state.rail.messages} />
             <div className={styles.rail}>
               {this.state.rail.times.slice(0, this.state.limit).map(row => (
                 <p key={`${row.std}${row.etd}${row.platform}${row.from}${row.to}`}>

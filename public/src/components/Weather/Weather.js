@@ -54,12 +54,12 @@ class Weather extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>Weather</h2>
               <a
                 href=""
-                className={this.state.limit === 24 ? globalStyles.hidden : styles.viewMore}
+                className={this.state.limit === 24 ? globalStyles.hidden : styles['view-more']}
                 onClick={event => this.increaseLimit(event)}
               >
               Further ahead &gt;

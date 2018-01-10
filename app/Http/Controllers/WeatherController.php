@@ -18,7 +18,7 @@ class WeatherController extends Controller
 
     public function getWeather()
     {
-        $results = Cache::remember("weather", 1, function() {
+        $results = Cache::remember("weather", 20, function() {
             return $this->getWeatherData();
         });
         return $this->successResponse($results);
@@ -26,7 +26,7 @@ class WeatherController extends Controller
 
     public function getGeoWeather($location)
     {
-        $results = Cache::remember("weather-$location", 1, function() use ($location) {
+        $results = Cache::remember("weather-$location", 20, function() use ($location) {
             return $this->getWeatherData($location);
         });
         return $this->successResponse($results);
@@ -34,7 +34,7 @@ class WeatherController extends Controller
 
     public function getCityWeather($location)
     {
-        $results = Cache::remember("weather-GB/$location", 1, function() use ($location) {
+        $results = Cache::remember("weather-GB/$location", 20, function() use ($location) {
             return $this->getWeatherData("GB/" . $location);
         });
         return $this->successResponse($results);

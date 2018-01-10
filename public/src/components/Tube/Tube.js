@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Tube.css';
+import globalStyles from '../../../styles/main.css';
 import TubeService from '../../services/TubeService';
 
 class Tube extends React.Component {
@@ -25,8 +26,8 @@ class Tube extends React.Component {
     if (hasData) {
       toRender = (
         <div>
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
+          <div className={globalStyles.card}>
+            <div className={globalStyles.cardHeader}>
               <h2>Tube</h2>
             </div>
             <div className={styles.tube}>
