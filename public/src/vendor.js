@@ -8,5 +8,3 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import 'babel-polyfill';
-import 'whatwg-fetch';

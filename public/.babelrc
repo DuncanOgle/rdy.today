@@ -1,3 +1,18 @@
 {
-  "presets": [ "es2015" ]
+  "presets": [
+    "react",
+    [ "env", {
+      "targets": {
+        "browsers": [
+          "last 2 chrome versions",
+          "last 2 firefox versions",
+          "last 3 safari major versions",
+          "last 2 edge versions",
+          "last 2 samsung versions",
+          "last 3 ios_saf major versions",
+          "last 2 and_chr versions"
+        ]
+      }
+    }]
+  ]
 }
