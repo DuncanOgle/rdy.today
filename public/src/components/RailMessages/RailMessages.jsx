@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 const RailMessages = (props) => {
-    if (props.messages.length) {
+    if (!props.messages.length) {
         return null;
     }
 
