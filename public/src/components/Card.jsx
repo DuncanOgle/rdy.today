@@ -8,12 +8,10 @@ const styling = {
     marginBottom: '10px'
 };
 
-const Card = (props) => {
-    return (
-        <div style={styling}>
-            {props.children}
-        </div>
-    );
-};
+const Card = props => (
+    <div style={styling}>
+        {props.children}
+    </div>
+);
 
 export default Card;

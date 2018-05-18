@@ -36,7 +36,7 @@ class Weather extends Component {
 
     /**
      * getWeatherData
-     * @param {String} coords
+     * @param {String} [coords]
      */
     getWeatherData(coords) {
         WeatherService.getWeatherData(coords)
