@@ -5,17 +5,15 @@ import Weather from './components/Weather';
 import Tube from './components/Tube';
 import Rail from './components/Rail';
 
-const Root = () => {
-    return (
-        <div className={'container'}>
-            <h1 className={'title'}>Rdy.Today</h1>
-            <Weather />
-            <br />
-            <Rail />
-            <br />
-            <Tube />
-        </div>
-    );
-};
+const Root = () => (
+    <div className={'container'}>
+        <h1 className={'title'}>Rdy.Today</h1>
+        <Weather />
+        <br />
+        <Rail />
+        <br />
+        <Tube />
+    </div>
+);
 
 render(<Root />, document.getElementById('main'), document.getElementById('main').lastChild);

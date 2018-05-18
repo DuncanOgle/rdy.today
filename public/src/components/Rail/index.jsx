@@ -11,6 +11,7 @@ import CardLoading from '../CardLoading';
 import RailFromTo from '../RailFromTo';
 import CardInner from '../CardInner';
 import RailRow from '../RailRow';
+import QueryString from '../../services/QueryString';
 
 class Rail extends Component {
     constructor(props) {
@@ -23,12 +24,17 @@ class Rail extends Component {
     }
 
     componentDidMount() {
+        const overrides = QueryString.parse();
+
+        const from = overrides.from || 'LEW';
+        const to = overrides.to || 'CHX';
+
         GeoService.getGeoPosition()
             .then((coords) => {
-                this.getRailData('LEW', 'CHX', `${coords.lat},${coords.lon}`);
+                this.getRailData(from, to, `${coords.lat},${coords.lon}`);
             })
             .catch(() => {
-                this.getRailData('LEW', 'CHX');
+                this.getRailData(from, to);
             });
     }
 

@@ -15,7 +15,7 @@ class Tube extends Component {
 
         this.state = {
             tube: null
-        }
+        };
     }
 
     componentDidMount() {

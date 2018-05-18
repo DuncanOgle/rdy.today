@@ -1,7 +1,8 @@
 /**
- * Created by duncanogle on 29/06/2017.
+ * Takes raw geoloaction result and parses it into a simple object
+ * @param {Object} position
+ * @returns {{lat: string|number, lon: string|number}}
  */
-
 function positionToObject(position) {
     return {
         lat: position.coords.latitude,

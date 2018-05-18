@@ -5,12 +5,10 @@ const styling = {
     marginBottom: '10px'
 };
 
-const CardHeader = (props) => {
-    return (
-        <div style={styling}>
-            {props.children}
-        </div>
-    );
-};
+const CardHeader = props => (
+    <div style={styling}>
+        {props.children}
+    </div>
+);
 
 export default CardHeader;
