@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "autoprefixer": "^8.0.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-preact": "^1.1.0",
     "eslint": "^3.9.1",
@@ -11,18 +12,16 @@
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
-    "jest": "^22.0.5"
+    "jest": "^22.0.5",
+    "postcss-modules": "^1.1.0"
   },
   "dependencies": {
-    "autoprefixer": "^8.0.0",
-    "postcss-modules": "^1.1.0",
     "preact": "^8.2.7",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
-    "build": "webpack --progress --colors",
-    "watch": "webpack --watch --progress --colors",
-    "production": "webpack -p --progress --colors",
+    "watch": "parcel src/index.jsx",
+    "production": "parcel build src/index.jsx --detailed-report",
     "test": "jest --watchAll",
     "test-ci": "jest"
   },

@@ -1,19 +1,15 @@
-.tube {
-  border-radius: 10px;
+.line {
+  padding: 10px;
 }
 
-.tube p:first-child {
+.line:first-of-type {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.tube p:last-child {
+.line:last-of-type {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-
-.line {
-  padding: 10px;
 }
 
 .northern {

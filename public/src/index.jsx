@@ -1,9 +1,9 @@
 import { h, render } from 'preact';
 import '../styles/main.css';
 
-import Weather from './components/Weather/Weather';
-import Tube from './components/Tube/Tube';
-import Rail from './components/Rail/Rail';
+import Weather from './components/Weather';
+import Tube from './components/Tube';
+import Rail from './components/Rail';
 
 const Root = () => {
     return (

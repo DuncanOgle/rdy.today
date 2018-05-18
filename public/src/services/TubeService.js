@@ -3,17 +3,17 @@
  */
 
 function getTubeData() {
-  return new Promise((resolve, reject) => {
-    fetch('/api/tube')
-      .then((response) => {
-        resolve(response.json());
-      })
-      .catch(() => {
-        reject();
-      });
-  });
+    return new Promise((resolve, reject) => {
+        fetch('/api/tube')
+            .then((response) => {
+                resolve(response.json());
+            })
+            .catch(() => {
+                reject();
+            });
+    });
 }
 
 export default {
-  getTubeData,
+    getTubeData
 };
