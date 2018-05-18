@@ -7,13 +7,12 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FFFFFF">
 
-  <link rel="stylesheet" href="dist/style.css">
+  <link rel="stylesheet" href="dist/index.css">
 </head>
 <body>
 <div class="container">
   <div id="main"></div>
 </div>
 </body>
-<script src="/dist/vendor.bundle.js"></script>
-<script src="/dist/App.bundle.js"></script>
+<script src="/dist/index.js"></script>
 </html>

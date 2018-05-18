@@ -3,17 +3,17 @@
  */
 
 function getRailData(from = 'LEW', to = 'CHX', coords = '') {
-  return new Promise((resolve, reject) => {
-    fetch(`/api/rail/${from}/${to}${coords ? `/${coords}` : ''}`)
-      .then((response) => {
-        resolve(response.json());
-      })
-      .catch(() => {
-        reject();
-      });
-  });
+    return new Promise((resolve, reject) => {
+        fetch(`/api/rail/${from}/${to}${coords ? `/${coords}` : ''}`)
+            .then((response) => {
+                resolve(response.json());
+            })
+            .catch(() => {
+                reject();
+            });
+    });
 }
 
 export default {
-  getRailData,
+    getRailData
 };
