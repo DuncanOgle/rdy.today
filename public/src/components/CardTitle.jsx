@@ -5,12 +5,10 @@ const styling = {
     color: '#3C4858'
 };
 
-const CardTitle = (props) => {
-    return (
-        <h2 style={styling}>
-            {props.children}
-        </h2>
-    );
-};
+const CardTitle = props => (
+    <h2 style={styling}>
+        {props.children}
+    </h2>
+);
 
 export default CardTitle;

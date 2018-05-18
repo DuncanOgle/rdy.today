@@ -1,4 +1,9 @@
 import { h } from 'preact';
+import CardInner from './CardInner';
+
+const styling = {
+    marginBottom: '10px'
+};
 
 const RailMessages = (props) => {
     if (!props.messages.length) {
@@ -6,13 +11,13 @@ const RailMessages = (props) => {
     }
 
     return (
-        <div className={'rail'}>
+        <CardInner style={styling} withPadding>
             {props.messages.map(row => (
                 <ul>
                     <li dangerouslySetInnerHTML={{ __html: row }} />
                 </ul>
             ))}
-        </div>
+        </CardInner>
     );
 };
 
