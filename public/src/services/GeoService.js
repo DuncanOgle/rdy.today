@@ -3,21 +3,25 @@
  */
 
 function positionToObject(position) {
-  return {
-    lat: position.coords.latitude,
-    lon: position.coords.longitude,
-  };
+    return {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+    };
 }
 
 function getGeoPosition() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      resolve(positionToObject(position));
-    }, () => reject());
-  });
+    return new Promise((resolve, reject) => {
+        navigator.geolocation
+            .getCurrentPosition(
+                (position) => {
+                    resolve(positionToObject(position));
+                },
+                () => reject()
+            );
+    });
 }
 
 export default {
-  positionToObject,
-  getGeoPosition,
+    positionToObject,
+    getGeoPosition
 };
