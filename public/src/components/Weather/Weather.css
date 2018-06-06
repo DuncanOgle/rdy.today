@@ -1,7 +1,22 @@
+.fade-out::after {
+  content: "";
+  background: linear-gradient(to left, rgb(229, 233, 242) 0%, rgba(229, 233, 242, 0) 100%);
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  z-index: 2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .rain {
   position: relative;
   z-index: 1;
   padding: 4px 10px;
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 
 .rain:first-of-type::before {

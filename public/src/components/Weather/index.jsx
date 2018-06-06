@@ -75,7 +75,7 @@ class Weather extends Component {
                 </CardHeader>
                 {
                     hasData &&
-                    <CardInner>
+                    <CardInner className="fade-out">
                         {
                             weatherRows.map(row => <WeatherRow row={row} />)
                         }
