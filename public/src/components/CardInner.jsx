@@ -3,7 +3,8 @@ import { h } from 'preact';
 const CardInner = (props) => {
     const styling = Object.assign(props.style || {}, {
         borderRadius: '10px',
-        background: '#E5E9F2'
+        background: '#E5E9F2',
+        position: 'relative'
     });
 
     if (props.withPadding) {
@@ -11,7 +12,7 @@ const CardInner = (props) => {
     }
 
     return (
-        <div style={styling}>
+        <div style={styling} className={props.className}>
             {props.children}
         </div>
     );
