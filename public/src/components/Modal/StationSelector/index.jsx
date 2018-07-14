@@ -101,7 +101,7 @@ class StationSelector extends Component {
                         </div>
                     }
                     {
-                        data.length &&
+                        !!data.length &&
                         <div className="stations">
                             {data.map(element => (
                                 <div className="station" onClick={() => this.onStationSelect(element.code)}>
