@@ -1,16 +1,9 @@
-/**
- * Created by duncanogle on 29/06/2017.
- */
-
 function getTubeData() {
     return new Promise((resolve, reject) => {
         fetch('/api/tube')
-            .then((response) => {
-                resolve(response.json());
-            })
-            .catch(() => {
-                reject();
-            });
+            .then(response => response.json())
+            .then(response => resolve(response))
+            .catch(reject);
     });
 }
 

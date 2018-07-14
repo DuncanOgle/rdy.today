@@ -1,0 +1,5 @@
+.selector {
+    border-bottom: 1px dashed #333;
+    display: inline-block;
+    cursor: pointer;
+}

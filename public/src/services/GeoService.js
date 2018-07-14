@@ -12,13 +12,13 @@ function positionToObject(position) {
 
 function getGeoPosition() {
     return new Promise((resolve, reject) => {
-        navigator.geolocation
-            .getCurrentPosition(
-                (position) => {
-                    resolve(positionToObject(position));
-                },
-                () => reject()
-            );
+        // resolve({
+        //     lat: 51.4649087,
+        //     lon: -0.0126483
+        // });
+        navigator.geolocation.getCurrentPosition((position) => {
+            resolve(positionToObject(position));
+        }, reject);
     });
 }
 

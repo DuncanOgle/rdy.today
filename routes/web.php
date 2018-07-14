@@ -20,15 +20,13 @@ $app->get('/api', function () use ($app) {
 });
 
 $app->get('/api/tube/', 'TubeController@getTube');
-
 $app->get('/api/tube/{line}', 'TubeController@getSpecificTube');
 
 $app->get('/api/weather/', 'WeatherController@getWeather');
-
 $app->get('/api/weather/{location}/', 'WeatherController@getGeoWeather');
-
 $app->get('/api/weather/GB/{location}/', 'WeatherController@getCityWeather');
 
+$app->get('/api/rail/stations/', 'RailController@getStationsList');
+$app->get('/api/rail/stations/{coords}', 'RailController@getGeoStationsList');
 $app->get('/api/rail/{from}/{to}', 'RailController@getRail');
-
 $app->get('/api/rail/{from}/{to}/{coords}', 'RailController@getNearestRail');

@@ -1,3 +1,9 @@
 {
-  "modules": false
+  "modules": false,
+  "plugins": {
+      "postcss-modules": {
+            scopeBehaviour: 'global',
+            generateScopedName: '[local]'
+      }
+    }
 }

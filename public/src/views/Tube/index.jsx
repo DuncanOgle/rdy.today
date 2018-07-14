@@ -1,13 +1,12 @@
 import { h, Component } from 'preact';
-import './Tube.css';
 
 import TubeService from '../../services/TubeService';
-import Card from '../Card';
-import CardHeader from '../CardHeader';
-import CardTitle from '../CardTitle';
-import CardLoading from '../CardLoading';
-import CardInner from '../CardInner';
-import TubeRow from '../TubeRow';
+import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
+import CardTitle from '../../components/CardTitle';
+import CardLoading from '../../components/CardLoading';
+import CardInner from '../../components/CardInner';
+import TubeRow from '../../components/TubeRow';
 
 class Tube extends Component {
     constructor(props) {

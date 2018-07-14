@@ -1,11 +1,11 @@
 import { h } from 'preact';
+import './Tube.css';
 
 const WeatherRow = (props) => {
     const row = props.row;
-    const classes = ['line', row.line];
 
     return (
-        <p key={row.line} className={classes.join(' ')}>
+        <p key={row.line} className={`line ${row.line}`}>
             {row.disruption}
         </p>
     );

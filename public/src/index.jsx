@@ -1,13 +1,15 @@
 import { h, render } from 'preact';
 import '../styles/main.css';
 
-import Weather from './components/Weather';
-import Tube from './components/Tube';
-import Rail from './components/Rail';
+import Weather from './views/Weather';
+import Tube from './views/Tube';
+import Rail from './views/Rail';
+import Modal from './components/Modal';
 
 const Root = () => (
-    <div className={'container'}>
-        <h1 className={'title'}>Rdy.Today</h1>
+    <div className="container">
+        <Modal />
+        <h1 className="title"><a href="/">Rdy.Today</a></h1>
         <Weather />
         <br />
         <Rail />

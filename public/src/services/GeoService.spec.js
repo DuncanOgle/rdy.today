@@ -6,8 +6,8 @@ describe('GeoService', () => {
             expect(typeof GeoService.positionToObject({
                 coords: {
                     latitue: 'x',
-                    longitude: 'y',
-                },
+                    longitude: 'y'
+                }
             })).toEqual('object');
         });
     });
