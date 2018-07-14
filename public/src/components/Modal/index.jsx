@@ -14,7 +14,8 @@ class Modal extends Component {
         };
 
         this.removeModal = this.removeModal.bind(this);
-        this.toggleScrolling = this.toggleScrolling.bind(this);
+        this.lockScrolling = this.lockScrolling.bind(this);
+        this.unlockScrolling = this.unlockScrolling.bind(this);
     }
 
     componentDidMount() {
@@ -33,7 +34,7 @@ class Modal extends Component {
         const newModals = this.state.modals.filter(element => element.key !== modalKey);
 
         if (!newModals.length) {
-            this.toggleScrolling();
+            this.unlockScrolling();
         }
 
         this.setState({
@@ -41,19 +42,17 @@ class Modal extends Component {
         });
     }
 
-    toggleScrolling() {
-        const isOverflowHidden = document.getElementsByTagName('body')[0].style.overflow === 'hidden';
+    lockScrolling() {
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    }
 
-        if (isOverflowHidden) {
-            document.getElementsByTagName('body')[0].style.overflow = '';
-        } else {
-            document.getElementsByTagName('body')[0].style.overflow = 'hidden';
-        }
+    unlockScrolling() {
+        document.getElementsByTagName('body')[0].style.overflow = '';
     }
 
     render() {
         if (this.state.modals.length) {
-            this.toggleScrolling();
+            this.lockScrolling();
         }
 
         return (
