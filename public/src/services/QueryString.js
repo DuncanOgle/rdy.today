@@ -1,7 +1,3 @@
-/**
- * Created by duncanogle on 29/06/2017.
- */
-
 function parse() {
     const data = {};
 
@@ -20,6 +16,16 @@ function parse() {
     return data;
 }
 
+function addOrUpdateQueryString(key, value) {
+    const parsed = parse();
+
+    parsed[key] = value;
+
+    const encoded = Object.entries(parsed).map(([k, v]) => `${k}=${v}`).join('&');
+    window.history.pushState({ path: `?${encoded}` }, '', `?${encoded}`);
+}
+
 export default {
-    parse
+    parse,
+    addOrUpdateQueryString
 };

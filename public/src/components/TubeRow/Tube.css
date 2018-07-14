@@ -1,0 +1,73 @@
+.line {
+    padding: 10px;
+}
+
+.line:first-of-type {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.line:last-of-type {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.northern {
+    background: #000;
+    color: #FFF
+}
+
+.bakerloo {
+    background: #894e24;
+    color: #FFF
+}
+
+.central {
+    background: #dc241f;
+    color: #FFF
+}
+
+.circle {
+    background: #ffce00
+}
+
+.district {
+    background: #007229;
+    color: #FFF
+}
+
+.hammersmith, .hammersmith-city {
+    background: #d799af
+}
+
+.jubilee {
+    background: #6a7278;
+    color: #FFF
+}
+
+.metropolitan {
+    background: #751056;
+    color: #FFF
+}
+
+.piccadilly {
+    background: #0019a8;
+    color: #FFF
+}
+
+.victoria {
+    background: #00a0e2
+}
+
+.waterloo, .waterloo-city {
+    background: #76d0bd
+}
+
+.london-overground {
+    background: #e86a10;
+    color: #FFF
+}
+
+.dlr {
+    background: #00afad
+}

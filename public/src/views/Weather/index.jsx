@@ -4,13 +4,13 @@ import './Weather.css';
 import WeatherService from '../../services/WeatherService';
 import GeoService from '../../services/GeoService';
 
-import Card from '../Card';
-import CardHeader from '../CardHeader';
-import CardTitle from '../CardTitle';
-import CardLoading from '../CardLoading';
-import WeatherRow from '../WeatherRow';
-import CardInner from '../CardInner';
-import WeatherViewMore from '../WeatherViewMore';
+import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
+import CardTitle from '../../components/CardTitle';
+import CardLoading from '../../components/CardLoading';
+import WeatherRow from '../../components/WeatherRow';
+import CardInner from '../../components/CardInner';
+import WeatherViewMore from '../../components/WeatherViewMore';
 
 class Weather extends Component {
     constructor(props) {
@@ -66,7 +66,7 @@ class Weather extends Component {
 
         return (
             <Card>
-                <CardHeader>
+                <CardHeader style={{ position: 'relative' }}>
                     <CardTitle>Weather</CardTitle>
                     {
                         hasData &&
@@ -76,9 +76,11 @@ class Weather extends Component {
                 {
                     hasData &&
                     <CardInner className="fade-out">
-                        {
-                            weatherRows.map(row => <WeatherRow row={row} />)
-                        }
+                        <div style={{ overflowX: 'scroll' }}>
+                            {
+                                weatherRows.map(row => <WeatherRow row={row} />)
+                            }
+                        </div>
                     </CardInner>
                 }
                 {

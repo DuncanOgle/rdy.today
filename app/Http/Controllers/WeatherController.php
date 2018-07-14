@@ -43,7 +43,7 @@ class WeatherController extends Controller
     private function getWeatherData($location = null)
     {
         if (is_null($location)) {
-            $location = "51.4651295,-0.0121473";
+            $location = "51.513788,-0.098498";
         }
 
         $data = json_decode(file_get_contents("http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/$location.json"));

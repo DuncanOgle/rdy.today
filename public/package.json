@@ -7,6 +7,7 @@
     "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-preact": "^1.1.0",
+    "cssnano": "^4.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-loader": "^1.8.0",
@@ -17,11 +18,12 @@
     "postcss-modules": "^1.1.0"
   },
   "dependencies": {
+    "mitt": "^1.1.3",
     "preact": "^8.2.7"
   },
   "scripts": {
-    "watch": "parcel src/index.jsx",
-    "production": "parcel build src/index.jsx --detailed-report",
+    "watch": "parcel src/index.jsx --no-cache",
+    "production": "parcel build src/index.jsx --detailed-report --no-cache",
     "test": "jest --watchAll",
     "test-ci": "jest"
   },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Acme\RailData;
+use App\Acme\TargettedRailData;
 use App\Acme\XML2Array;
 use Illuminate\Support\Facades\Cache;
 
@@ -48,11 +49,44 @@ class RailController extends Controller
         }
 
         $data = $this->determineOrderFromCoords($from, $to, $coords);
+        $guard = $data[1] ?? $data[0];
 
-        $results = Cache::remember("rail-$data[0]-$$data[1]", 1, function() use ($data) {
-            return $this->getRailData($data[0], $data[1]);
+        $results = Cache::remember("rail-$data[0]-$guard", 1, function() use ($data, $guard) {
+            return $this->getRailData($data[0], $guard);
         });
         return $this->successResponse($results);
+    }
+
+    public function getStationsList() {
+        $result = [];
+
+        foreach (TargettedRailData::lines() as $key => $line) {
+            $result[$key] = $line['title'];
+        }
+
+        return $this->successResponse($result);
+    }
+
+    public function getGeoStationsList($coords) {
+        $split = explode(',', $coords);
+        $result = [];
+        $distances = [];
+
+        foreach (TargettedRailData::lines() as $key => $line) {
+            $result[$key] = [
+                "title" => $line['title'],
+                "distance" => $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude'])
+            ];
+
+            $result[$key]['distance'] = round($result[$key]['distance']);
+
+            $distances[$key] = $result[$key]['distance'];
+        }
+
+        array_multisort($distances, SORT_ASC, $result);
+
+
+        return $this->successResponse($result);
     }
 
     private function determineOrderFromCoords($from, $to, $coords)
@@ -60,7 +94,7 @@ class RailController extends Controller
         $split = explode(',', $coords);
         $distances = [];
 
-        foreach (RailData::$lines as $key => $line) {
+        foreach (TargettedRailData::lines() as $key => $line) {
             if (mb_strtolower($key) == mb_strtolower($from) || mb_strtolower($key) == mb_strtolower($to)) {
                 $distances[$key] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
             }
@@ -77,7 +111,7 @@ class RailController extends Controller
         $split = explode(',', $coords);
         $distances = [];
 
-        foreach (RailData::$lines as $key => $line) {
+        foreach (TargettedRailData::lines() as $key => $line) {
             $distances[$key] = $this->haversine($split[0], $split[1], $line['latitude'], $line['longitude']);
         }
 
@@ -119,7 +153,8 @@ class RailController extends Controller
     {
         $data = json_decode($this->makeRequest($from, $to));
         $toReturn = [
-            'messages' => []
+            'messages' => [],
+            'times' => []
         ];
 
         if (isset($data->nrccMessages)) {
@@ -129,8 +164,8 @@ class RailController extends Controller
         if (!empty($data->trainServices)) {
             foreach ($data->trainServices->service as $object) {
                 $toReturn['times'][] = [
-                    'from'         => $object->origin->location->locationName,
-                    'to'           => $object->destination->location->locationName,
+                    'from'         => @$object->origin->location->locationName,
+                    'to'           => @$object->destination->location->locationName,
                     'std'          => $object->std,
                     'etd'          => $object->etd,
                     'platform'     => @$object->platform ?: '',
@@ -142,9 +177,9 @@ class RailController extends Controller
 
         $toReturn['meta'] = [
             'to' => $to,
-            'toName' => RailData::$lines[$to]['title'],
+            'toName' => TargettedRailData::lines()[strtoupper($to)]['title'],
             'from' => $from,
-            'fromName' => RailData::$lines[$from]['title']
+            'fromName' => TargettedRailData::lines()[strtoupper($from)]['title']
         ];
 
         return $toReturn;
