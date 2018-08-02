@@ -18,21 +18,30 @@ const styles = {
 };
 
 const config = {
-    entry: ['./src/index.jsx'],
+    watch: process.env.NODE_ENV === 'development',
+
+    entry: ['./src/index.tsx'],
 
     devtool: 'source-map',
 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index.js'
+        filename: 'index_t.js'
     },
 
     resolve: {
-        extensions: ['.js', '.json', '.jsx']
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx']
     },
 
     module: {
-        rules: [javascript, styles]
+        rules: [
+            styles,
+            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' }
+        ]
     }
 };
 

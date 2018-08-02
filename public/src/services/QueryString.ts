@@ -1,4 +1,9 @@
-function parse() {
+interface ResultInterface {
+    from?: string,
+    to?: string
+}
+
+function parse(): ResultInterface {
     const data = {};
 
     if (!window.location.search) {

@@ -12,7 +12,11 @@ import WeatherRow from '../../components/WeatherRow';
 import CardInner from '../../components/CardInner';
 import WeatherViewMore from '../../components/WeatherViewMore';
 
-class Weather extends Component {
+interface Props {}
+interface State {weather: Array<Object>, limit: number}
+
+
+class Weather extends Component<Props, State> {
     constructor(props) {
         super(props);
 
@@ -34,11 +38,7 @@ class Weather extends Component {
             });
     }
 
-    /**
-     * getWeatherData
-     * @param {String} [coords]
-     */
-    getWeatherData(coords) {
+    getWeatherData(coords?: string) {
         WeatherService.getWeatherData(coords)
             .then((response) => {
                 this.setState({

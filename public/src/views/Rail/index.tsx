@@ -15,7 +15,19 @@ import RailRow from '../../components/RailRow';
 import PubSub from '../../services/PubSub';
 import Constants from '../../services/Constants';
 
-class Rail extends Component {
+import { MetaDataInterface } from '../../components/RailFromTo';
+
+interface Props {}
+interface State {
+    rail: {
+        times: Array<string>,
+        messages: Array<string>,
+        meta: MetaDataInterface
+    },
+    limit: number
+}
+
+class Rail extends Component<Props, State> {
     constructor(props) {
         super(props);
 
@@ -40,14 +52,14 @@ class Rail extends Component {
         const to = overrides.to || 'CHX';
 
         if (overrides.from && overrides.to) {
-            this.getRailData(from, to);
+            this.getRailData(from, to, undefined);
         } else {
             GeoService.getGeoPosition()
                 .then((coords) => {
                     this.getRailData(from, to, `${coords.lat},${coords.lon}`);
                 })
                 .catch(() => {
-                    this.getRailData(from, to);
+                    this.getRailData(from, to, undefined);
                 });
         }
     }
@@ -94,7 +106,7 @@ class Rail extends Component {
                         {!hasData && 'Rail'}
                         {
                             hasData &&
-                            <RailFromTo data={metadata} stationsList={this.state.stationsList} />
+                            <RailFromTo data={metadata} />
                         }
                     </CardTitle>
                 </CardHeader>

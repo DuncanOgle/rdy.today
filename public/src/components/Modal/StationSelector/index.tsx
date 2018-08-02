@@ -3,13 +3,24 @@ import './StationSelector.css';
 
 import CardLoading from '../../../components/CardLoading';
 
-import RailService from '../../../services/RailService';
+import RailService, {ResultInterface} from '../../../services/RailService';
 import QueryString from '../../../services/QueryString';
 import PubSub from '../../../services/PubSub';
 import Constants from '../../../services/Constants';
 import GeoService from '../../../services/GeoService';
 
-class StationSelector extends Component {
+interface Props {
+    data: {
+        stationToChange: string
+    }
+}
+interface State {
+    stationsList: Array<ResultInterface>,
+    filterString: string,
+    stationToChange: string
+}
+
+class StationSelector extends Component<Props, State> {
     constructor(props) {
         super(props);
 
@@ -55,7 +66,7 @@ class StationSelector extends Component {
         this.closeModal();
     }
 
-    getStationsList(coords) {
+    getStationsList(coords?) {
         RailService.getStationsList(coords)
             .then((response) => {
                 this.setState({
@@ -70,7 +81,7 @@ class StationSelector extends Component {
         }
     }
 
-    closeModal(event) {
+    closeModal(event?) {
         if (!event || event.target.id === 'modal') {
             PubSub.publish(Constants.STATION_SELECT_CLOSE);
         }

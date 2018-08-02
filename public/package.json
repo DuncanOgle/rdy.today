@@ -3,10 +3,13 @@
   "version": "2.0.0",
   "private": true,
   "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
     "autoprefixer": "^8.0.0",
+    "awesome-typescript-loader": "^5.2.0",
     "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-preact": "^1.1.0",
+    "css-loader": "^1.0.0",
     "cssnano": "^4.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^15.0.1",
@@ -15,15 +18,22 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "jest": "^22.0.5",
-    "postcss-modules": "^1.1.0"
+    "postcss-modules": "^1.1.0",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.21.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "mitt": "^1.1.3",
     "preact": "^8.2.7"
   },
   "scripts": {
+    "watch-webpack": "webpack --mode=development",
+    "prod-webpack": "webpack --mode=production",
     "watch": "parcel src/index.jsx --no-cache",
-    "production": "parcel build src/index.jsx --detailed-report --no-cache",
+    "production": "parcel build src/index.tsx --detailed-report --no-cache",
     "test": "jest --watchAll",
     "test-ci": "jest"
   },

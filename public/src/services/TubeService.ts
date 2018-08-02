@@ -1,4 +1,8 @@
-function getTubeData() {
+interface ResultInterface {
+    data: Array<Object>
+}
+
+function getTubeData(): Promise<ResultInterface> {
     return new Promise((resolve, reject) => {
         fetch('/api/tube')
             .then(response => response.json())

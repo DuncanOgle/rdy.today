@@ -8,7 +8,10 @@ import CardLoading from '../../components/CardLoading';
 import CardInner from '../../components/CardInner';
 import TubeRow from '../../components/TubeRow';
 
-class Tube extends Component {
+interface Props {}
+interface State {tube: Array<Object>}
+
+class Tube extends Component<Props, State> {
     constructor(props) {
         super(props);
 

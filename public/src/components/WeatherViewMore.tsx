@@ -4,7 +4,8 @@ const WeatherViewMore = (props) => {
     const styling = {
         position: 'absolute',
         top: '10px',
-        right: '10px'
+        right: '10px',
+        display: ''
     };
 
     if (!props.isVisible) {

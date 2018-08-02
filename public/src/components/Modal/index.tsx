@@ -5,7 +5,12 @@ import StationSelector from './StationSelector';
 import PubSub from '../../services/PubSub';
 import Constants from '../../services/Constants';
 
-class Modal extends Component {
+interface Props {}
+interface State {modals: Array<{
+    key: string
+}>}
+
+class Modal extends Component<Props, State> {
     constructor(props) {
         super(props);
 

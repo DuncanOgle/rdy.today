@@ -1,6 +1,16 @@
+import { MetaDataInterface } from '../components/RailFromTo';
+
+export interface ResultInterface {
+    data: {
+        times: Array<string>,
+        messages: Array<string>,
+        meta: MetaDataInterface
+    }
+}
+
 let STATIONS = {};
 
-function getRailData(from = 'LEW', to = 'CHX', coords = '') {
+function getRailData(from = 'LEW', to = 'CHX', coords = ''): Promise<ResultInterface> {
     const newCoords = coords ? `/${coords}` : '';
 
     return new Promise((resolve, reject) => {
@@ -11,7 +21,7 @@ function getRailData(from = 'LEW', to = 'CHX', coords = '') {
     });
 }
 
-function getStationsList(coords = '') {
+function getStationsList(coords = ''): Promise<any> {
     const newCoords = coords ? `/${coords}` : '';
 
     return new Promise((resolve, reject) => {
@@ -29,7 +39,7 @@ function getStationsList(coords = '') {
     });
 }
 
-function filterStationsList(filterString) {
+function filterStationsList(filterString: string) {
     if (filterString === '' || filterString.length < 2) {
         return STATIONS;
     }
@@ -37,9 +47,8 @@ function filterStationsList(filterString) {
     const foundEntries = {};
     const searchString = filterString.toLowerCase();
 
-    Object.entries(STATIONS).forEach((entry) => {
-        const key = entry[0];
-        const value = entry[1].title || entry[1];
+    Object.keys(STATIONS).forEach(key => {
+        const value = STATIONS[key].title || STATIONS[key];
 
         if (!foundEntries[key]) {
             foundEntries[key] = {
@@ -71,33 +80,36 @@ function filterStationsList(filterString) {
 
     const toReturn = {};
     Object.entries(foundEntries)
-        .sort((a, b) => {
-            if (a[1].score < b[1].score) {
-                return 1;
-            }
-
-            if (a[1].score > b[1].score) {
-                return -1;
-            }
-
-            return 0;
-        })
-        .map((element) => {
-            const objectToReturn = {};
-
-            objectToReturn[element[0]] = element[1].value;
-
-            return objectToReturn;
-        })
+        .sort(sortFunction)
+        .map(rebuildObject)
         .filter(element => !!Object.values(element)[0])
         .forEach((element) => {
             const key = Object.keys(element)[0];
-            const value = Object.values(element)[0];
 
-            toReturn[key] = value;
+            toReturn[key] = Object.values(element)[0];
         });
 
     return toReturn;
+}
+
+function sortFunction(a, b) {
+    if (a[1].score < b[1].score) {
+        return 1;
+    }
+
+    if (a[1].score > b[1].score) {
+        return -1;
+    }
+
+    return 0;
+}
+
+function rebuildObject(element) {
+    const objectToReturn = {};
+
+    objectToReturn[element[0]] = element[1].value;
+
+    return objectToReturn;
 }
 
 export default {

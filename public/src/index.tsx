@@ -18,4 +18,4 @@ const Root = () => (
     </div>
 );
 
-render(<Root />, document.getElementById('main'), document.getElementById('main').lastChild);
+render(<Root />, document.getElementById('main'), document.getElementById('main').lastChild as Element);

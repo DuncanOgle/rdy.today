@@ -5,7 +5,23 @@ import QueryString from '../../services/QueryString';
 
 import './RailFromTo.css';
 
-class RailFromTo extends Component {
+export interface MetaDataInterface {
+    fromName: string,
+    toName: string,
+    from: string,
+    to: string
+}
+
+export interface Props {
+    data: MetaDataInterface
+}
+
+interface State {
+    from: string,
+    to: string
+}
+
+class RailFromTo extends Component<Props, State> {
     constructor(props) {
         super(props);
 
