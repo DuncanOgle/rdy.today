@@ -1,12 +1,12 @@
 const path = require('path');
 
-const javascript = {
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules|dist/,
-    use: [{
-        loader: 'babel-loader'
-    }]
-};
+// const javascript = {
+//     test: /\.(js|jsx)$/,
+//     exclude: /node_modules|dist/,
+//     use: [{
+//         loader: 'babel-loader'
+//     }]
+// };
 
 const styles = {
     test: /\.css$/,
@@ -18,8 +18,6 @@ const styles = {
 };
 
 const config = {
-    watch: process.env.NODE_ENV === 'development',
-
     entry: ['./src/index.tsx'],
 
     devtool: 'source-map',

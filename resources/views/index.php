@@ -62,5 +62,5 @@
 <body>
   <div id="main"></div>
 </body>
-<script src="/dist/index.js"></script>
+<script src="/dist/index_t.js"></script>
 </html>

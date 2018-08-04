@@ -30,7 +30,7 @@
     "preact": "^8.2.7"
   },
   "scripts": {
-    "watch-webpack": "webpack --mode=development",
+    "watch-webpack": "webpack --watch --mode=development",
     "prod-webpack": "webpack --mode=production",
     "watch": "parcel src/index.jsx --no-cache",
     "production": "parcel build src/index.tsx --detailed-report --no-cache",
