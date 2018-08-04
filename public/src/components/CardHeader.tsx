@@ -4,7 +4,7 @@ const styling = {
     marginBottom: '10px'
 };
 
-const CardHeader = props => (
+const CardHeader = (props: { children?: any, style?: {} }) => (
     <div style={Object.assign(styling, props.style)}>
         {props.children}
     </div>

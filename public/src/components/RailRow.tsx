@@ -1,14 +1,16 @@
-import { h } from 'preact';
+import {h} from 'preact';
+
+import {RailRowInterface} from '../services/RailService';
 
 const styling = {
     padding: '5px 5px'
 };
 
-function getStatus(row) {
+function getStatus(row: RailRowInterface) {
     return row.cancelReason ? 'Cancelled' : row.etd;
 }
 
-function getStatusText(row) {
+function getStatusText(row: RailRowInterface) {
     let toReturn = '';
 
     if (row.cancelReason || row.delayReason) {
@@ -18,7 +20,7 @@ function getStatusText(row) {
     return toReturn;
 }
 
-const RailRow = (props) => {
+const RailRow = (props: { row: RailRowInterface }) => {
     const row = props.row;
 
     const key = `${row.std}${row.etd}${row.platform}${row.from}${row.to}`;
@@ -29,7 +31,7 @@ const RailRow = (props) => {
     return (
         <p key={key} style={styling}>
             {departureTime} ({trainStatus}) {platform}
-            <span dangerouslySetInnerHTML={{ __html: getStatusText(row) }} />
+            <span dangerouslySetInnerHTML={{__html: getStatusText(row)}} />
         </p>
     );
 };

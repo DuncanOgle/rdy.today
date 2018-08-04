@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import './Weather.css';
 
-import WeatherService from '../../services/WeatherService';
+import WeatherService, { WeatherRowInterface } from '../../services/WeatherService';
 import GeoService from '../../services/GeoService';
 
 import Card from '../../components/Card';
@@ -17,7 +17,7 @@ interface State {weather: Array<Object>, limit: number}
 
 
 class Weather extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -51,7 +51,7 @@ class Weather extends Component<Props, State> {
      * increaseLimit
      * @param {Event} event
      */
-    increaseLimit(event) {
+    increaseLimit(event: Event) {
         event.preventDefault();
 
         this.setState({
@@ -78,7 +78,7 @@ class Weather extends Component<Props, State> {
                     <CardInner className="fade-out">
                         <div style={{ overflowX: 'scroll' }}>
                             {
-                                weatherRows.map(row => <WeatherRow row={row} />)
+                                weatherRows.map((row: WeatherRowInterface) => <WeatherRow row={row} />)
                             }
                         </div>
                     </CardInner>

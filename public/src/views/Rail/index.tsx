@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 
 import RailService from '../../services/RailService';
 import GeoService from '../../services/GeoService';
@@ -15,9 +15,11 @@ import RailRow from '../../components/RailRow';
 import PubSub from '../../services/PubSub';
 import Constants from '../../services/Constants';
 
-import { MetaDataInterface } from '../../components/RailFromTo';
+import {MetaDataInterface} from '../../components/RailFromTo';
 
-interface Props {}
+interface Props {
+}
+
 interface State {
     rail: {
         times: Array<string>,
@@ -28,7 +30,7 @@ interface State {
 }
 
 class Rail extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -64,7 +66,7 @@ class Rail extends Component<Props, State> {
         }
     }
 
-    getRailData(to, from, coords) {
+    getRailData(to: string, from: string, coords: string) {
         this.setState({
             rail: null
         });

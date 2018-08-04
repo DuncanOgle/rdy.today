@@ -1,6 +1,6 @@
-import { h } from 'preact';
+import {h} from 'preact';
 
-const WeatherViewMore = (props) => {
+const WeatherViewMore = (props: { isVisible?: boolean, onClick?: any }) => {
     const styling = {
         position: 'absolute',
         top: '10px',

@@ -1,9 +1,9 @@
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 import './StationSelector.css';
 
 import CardLoading from '../../../components/CardLoading';
 
-import RailService, {ResultInterface} from '../../../services/RailService';
+import RailService, {RailResultInterface} from '../../../services/RailService';
 import QueryString from '../../../services/QueryString';
 import PubSub from '../../../services/PubSub';
 import Constants from '../../../services/Constants';
@@ -14,14 +14,15 @@ interface Props {
         stationToChange: string
     }
 }
+
 interface State {
-    stationsList: Array<ResultInterface>,
+    stationsList: Array<RailResultInterface>,
     filterString: string,
     stationToChange: string
 }
 
 class StationSelector extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -54,19 +55,19 @@ class StationSelector extends Component<Props, State> {
         window.removeEventListener('keyup', this.escapeListener);
     }
 
-    onSearch(event) {
+    onSearch(event: KeyboardEvent) {
         this.setState({
             filterString: event.target.value
         });
     }
 
-    onStationSelect(stationCode) {
+    onStationSelect(stationCode: string) {
         QueryString.addOrUpdateQueryString(this.state.stationToChange, stationCode);
         PubSub.publish(Constants.STATION_SELECT);
         this.closeModal();
     }
 
-    getStationsList(coords?) {
+    getStationsList(coords?: string) {
         RailService.getStationsList(coords)
             .then((response) => {
                 this.setState({
@@ -75,13 +76,13 @@ class StationSelector extends Component<Props, State> {
             });
     }
 
-    escapeListener(event) {
-        if (event.keyCode === 27) {
+    escapeListener(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
             this.closeModal();
         }
     }
 
-    closeModal(event?) {
+    closeModal(event?: MouseEvent) {
         if (!event || event.target.id === 'modal') {
             PubSub.publish(Constants.STATION_SELECT_CLOSE);
         }
@@ -89,10 +90,14 @@ class StationSelector extends Component<Props, State> {
 
     render() {
         const filtered = RailService.filterStationsList(this.state.filterString);
-        const data = Object.keys(filtered).map(stationCode => ({
-            code: stationCode,
-            title: filtered[stationCode].title || filtered[stationCode]
-        }));
+        let data: Array<{code: string, title: string}> = [];
+
+        if (filtered) {
+            data = Object.keys(filtered).map(stationCode => ({
+                code: stationCode,
+                title: filtered[stationCode].title || filtered[stationCode]
+            }));
+        }
 
         return (
             <div className="modal-container" onClick={this.closeModal} id="modal">

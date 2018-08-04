@@ -1,8 +1,13 @@
-interface ResultInterface {
-    data: Array<Object>
+interface TubeResultInterface {
+    data: Array<TubeRowInterface>
 }
 
-function getTubeData(): Promise<ResultInterface> {
+export interface TubeRowInterface {
+    line: string,
+    disruption: string
+}
+
+function getTubeData(): Promise<TubeResultInterface> {
     return new Promise((resolve, reject) => {
         fetch('/api/tube')
             .then(response => response.json())

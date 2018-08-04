@@ -1,8 +1,19 @@
-interface ResultInterface {
-    data: Array<Object>
+export interface WeatherResultInterface {
+    data: Array<WeatherRowInterface>
 }
 
-function getWeatherData(coords: string): Promise<ResultInterface> {
+export interface WeatherRowInterface {
+    condition: string,
+    feelsLike: number,
+    hour: number
+    humidity: number,
+    pop: number
+    temperature: number,
+    windDirection: string,
+    windSpeed: number
+}
+
+function getWeatherData(coords: string): Promise<WeatherResultInterface> {
     return new Promise((resolve, reject) => {
         fetch(`/api/weather${coords ? `/${coords}` : ''}`)
             .then(response => response.json())

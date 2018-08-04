@@ -1,7 +1,13 @@
-import { h } from 'preact';
+import {h} from 'preact';
 import './Tube.css';
 
-const WeatherRow = (props) => {
+import {TubeRowInterface} from '../../services/TubeService';
+
+interface Props {
+    row: TubeRowInterface
+}
+
+const WeatherRow = (props: Props) => {
     const row = props.row;
 
     return (

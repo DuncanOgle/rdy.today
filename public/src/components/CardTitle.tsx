@@ -5,7 +5,7 @@ const styling = {
     color: '#3C4858'
 };
 
-const CardTitle = props => (
+const CardTitle = (props: { children?: any }) => (
     <h2 style={styling}>
         {props.children}
     </h2>

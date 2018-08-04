@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 import Constants from '../../services/Constants';
 import PubSub from '../../services/PubSub';
 import QueryString from '../../services/QueryString';
@@ -22,7 +22,7 @@ interface State {
 }
 
 class RailFromTo extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -34,15 +34,15 @@ class RailFromTo extends Component<Props, State> {
         this.switchDirection = this.switchDirection.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         this.setState({
             from: nextProps.data.fromName,
             to: nextProps.data.toName
         });
     }
 
-    showStationSelector(station) {
-        PubSub.publish(Constants.STATION_SELECT_OPEN, { stationToChange: station });
+    showStationSelector(station: string) {
+        PubSub.publish(Constants.STATION_SELECT_OPEN, {stationToChange: station});
     }
 
     switchDirection() {

@@ -1,17 +1,21 @@
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 
 import StationSelector from './StationSelector';
 
 import PubSub from '../../services/PubSub';
 import Constants from '../../services/Constants';
 
-interface Props {}
-interface State {modals: Array<{
-    key: string
-}>}
+interface Props {
+}
+
+interface State {
+    modals: Array<{
+        key: string
+    }>
+}
 
 class Modal extends Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -35,7 +39,7 @@ class Modal extends Component<Props, State> {
         PubSub.subscribe(Constants.STATION_SELECT_CLOSE, () => this.removeModal('stationSelector'));
     }
 
-    removeModal(modalKey) {
+    removeModal(modalKey: string) {
         const newModals = this.state.modals.filter(element => element.key !== modalKey);
 
         if (!newModals.length) {

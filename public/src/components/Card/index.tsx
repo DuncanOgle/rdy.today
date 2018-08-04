@@ -1,7 +1,7 @@
-import { h } from 'preact';
+import {h} from 'preact';
 import './Card.css';
 
-const Card = props => (
+const Card = (props: { children?: any }) => (
     <div className="card">
         {props.children}
     </div>

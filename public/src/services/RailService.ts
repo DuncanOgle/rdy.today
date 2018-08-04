@@ -1,6 +1,6 @@
-import { MetaDataInterface } from '../components/RailFromTo';
+import {MetaDataInterface} from '../components/RailFromTo';
 
-export interface ResultInterface {
+export interface RailResultInterface {
     data: {
         times: Array<string>,
         messages: Array<string>,
@@ -8,9 +8,36 @@ export interface ResultInterface {
     }
 }
 
-let STATIONS = {};
+export interface RailRowInterface {
+    cancelReason: string,
+    etd: string,
+    delayReason: string,
+    std: string,
+    platform: string,
+    from: string,
+    to: string
+}
 
-function getRailData(from = 'LEW', to = 'CHX', coords = ''): Promise<ResultInterface> {
+interface StationResultInterface {
+    data: Array<StationRowInterface>
+}
+
+export interface StationRowInterface {
+    [index: string]: string,
+
+    title?: string
+}
+
+interface ScoredObjectInterface {
+    [index: string]: string,
+
+    value?: string,
+    score?: string
+}
+
+let STATIONS: { [index: string]: string } = {};
+
+function getRailData(from = 'LEW', to = 'CHX', coords = ''): Promise<RailResultInterface> {
     const newCoords = coords ? `/${coords}` : '';
 
     return new Promise((resolve, reject) => {
@@ -25,8 +52,8 @@ function getStationsList(coords = ''): Promise<any> {
     const newCoords = coords ? `/${coords}` : '';
 
     return new Promise((resolve, reject) => {
-        if (Object.keys(STATIONS).length) {
-            return resolve({ data: STATIONS });
+        if (!!Object.keys(STATIONS).length) {
+            return resolve({data: STATIONS});
         }
 
         return fetch(`/api/rail/stations${newCoords}`)
@@ -44,72 +71,69 @@ function filterStationsList(filterString: string) {
         return STATIONS;
     }
 
-    const foundEntries = {};
-    const searchString = filterString.toLowerCase();
+    const foundEntries: ScoredObjectInterface = {};
 
-    Object.keys(STATIONS).forEach(key => {
-        const value = STATIONS[key].title || STATIONS[key];
+    Object.keys(STATIONS)
+        .map((key: string) => ({key, value: STATIONS[key]}))
+        .forEach((element: { key: string, value: string }) => {
+            if (!foundEntries[element.key]) {
+                foundEntries[element.key] = {
+                    value: element.value,
+                    score: 0
+                };
+            }
 
-        if (!foundEntries[key]) {
-            foundEntries[key] = {
-                value: '',
-                score: 0
-            };
-        }
+            foundEntries[element.key].score += determineScore(element, filterString);
+        });
 
-        if (key.toLowerCase().includes(searchString)) {
-            foundEntries[key].value = value;
-            foundEntries[key].score += 5;
-        }
-
-        if (value.toLowerCase() === searchString) {
-            foundEntries[key].value = value;
-            foundEntries[key].score += 2.5;
-        }
-
-        if (value.toLowerCase().startsWith(searchString)) {
-            foundEntries[key].value = value;
-            foundEntries[key].score += 1.5;
-        }
-
-        if (value.toLowerCase().includes(searchString)) {
-            foundEntries[key].value = value;
-            foundEntries[key].score += 1;
-        }
-    });
+    const newee = Object.keys(foundEntries).map(elem => ({
+        key: elem,
+        value: foundEntries[elem].value,
+        score: foundEntries[elem].score,
+    }));
 
     const toReturn = {};
-    Object.entries(foundEntries)
+    newee
+        .filter(element => !!element.score)
         .sort(sortFunction)
-        .map(rebuildObject)
-        .filter(element => !!Object.values(element)[0])
         .forEach((element) => {
-            const key = Object.keys(element)[0];
-
-            toReturn[key] = Object.values(element)[0];
+            toReturn[element.key] = element.value;
         });
 
     return toReturn;
 }
 
-function sortFunction(a, b) {
-    if (a[1].score < b[1].score) {
+function determineScore(element: { key: string, value: string }, filterString: string) {
+    const searchString: string = filterString.toLowerCase();
+    const value: string = element.value.toLowerCase();
+
+    if (element.key.toLowerCase().includes(searchString)) {
+        return 5;
+    }
+
+    if (value === searchString) {
+        return 2.5;
+    }
+
+    if (value.startsWith(searchString)) {
+        return 1.5;
+    }
+
+    if (value.includes(searchString)) {
+        return 1;
+    }
+}
+
+function sortFunction(a: { score: string }, b: { score: string }) {
+    if (a.score < b.score) {
         return 1;
     }
 
-    if (a[1].score > b[1].score) {
+    if (a.score > b.score) {
         return -1;
     }
 
     return 0;
-}
-
-function rebuildObject(element) {
-    const objectToReturn = {};
-
-    objectToReturn[element[0]] = element[1].value;
-
-    return objectToReturn;
 }
 
 export default {
