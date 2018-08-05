@@ -1,9 +1,9 @@
-import {h, Component} from 'preact';
+import { h, Component } from 'preact';
 import './StationSelector.css';
 
 import CardLoading from '../../../components/CardLoading';
 
-import RailService, {StationRowInterface} from '../../../services/RailService';
+import RailService, { StationRowInterface } from '../../../services/RailService';
 import QueryString from '../../../services/QueryString';
 import PubSub from '../../../services/PubSub';
 import Constants from '../../../services/Constants';
@@ -94,7 +94,7 @@ class StationSelector extends Component<Props, State> {
 
     render() {
         const filtered = RailService.filterStationsList(this.state.filterString);
-        let data: Array<{code: string, title: string}> = [];
+        let data: Array<{ code: string, title: string }> = [];
 
         if (filtered) {
             data = Object.keys(filtered).map(stationCode => ({

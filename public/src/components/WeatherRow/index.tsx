@@ -1,7 +1,7 @@
-import {h} from 'preact';
+import { h } from 'preact';
 import './Weather.css';
 
-import {WeatherRowInterface} from '../../services/WeatherService';
+import { WeatherRowInterface } from '../../services/WeatherService';
 
 interface Props {
     row: WeatherRowInterface

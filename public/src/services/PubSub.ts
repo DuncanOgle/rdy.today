@@ -1,4 +1,5 @@
 import * as Mitt from 'mitt';
+
 let emitter: mitt.Emitter = new Mitt();
 
 // import Mitt from 'mitt';

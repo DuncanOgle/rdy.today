@@ -29,7 +29,7 @@ function addOrUpdateQueryString(key: string, value: string) {
     parsed[key] = value;
 
     const encoded = Object.entries(parsed).map(([k, v]) => `${k}=${v}`).join('&');
-    window.history.pushState({path: `?${encoded}`}, '', `?${encoded}`);
+    window.history.pushState({ path: `?${encoded}` }, '', `?${encoded}`);
 }
 
 export default {

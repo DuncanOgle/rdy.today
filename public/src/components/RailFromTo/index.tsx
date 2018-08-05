@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import { h, Component } from 'preact';
 import Constants from '../../services/Constants';
 import PubSub from '../../services/PubSub';
 import QueryString from '../../services/QueryString';
@@ -42,7 +42,7 @@ class RailFromTo extends Component<Props, State> {
     }
 
     showStationSelector(station: string) {
-        PubSub.publish(Constants.STATION_SELECT_OPEN, {stationToChange: station});
+        PubSub.publish(Constants.STATION_SELECT_OPEN, { stationToChange: station });
     }
 
     switchDirection() {

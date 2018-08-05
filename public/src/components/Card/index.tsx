@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import { h } from 'preact';
 import './Card.css';
 
 const Card = (props: { children?: any }) => (

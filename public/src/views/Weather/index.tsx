@@ -12,9 +12,13 @@ import WeatherRow from '../../components/WeatherRow';
 import CardInner from '../../components/CardInner';
 import WeatherViewMore from '../../components/WeatherViewMore';
 
-interface Props {}
-interface State {weather: Array<Object>, limit: number}
+interface Props {
+}
 
+interface State {
+    weather: Array<Object>,
+    limit: number
+}
 
 class Weather extends Component<Props, State> {
     constructor(props: Props) {

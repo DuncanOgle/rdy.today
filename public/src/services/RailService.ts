@@ -1,4 +1,4 @@
-import {MetaDataInterface} from '../components/RailFromTo';
+import { MetaDataInterface } from '../components/RailFromTo';
 
 export interface RailResultInterface {
     data: {
@@ -51,7 +51,7 @@ function getStationsList(coords = ''): Promise<StationResultInterface> {
 
     return new Promise((resolve, reject) => {
         if (!!Object.keys(STATIONS).length) {
-            return resolve({data: STATIONS});
+            return resolve({ data: STATIONS });
         }
 
         return fetch(`/api/rail/stations${newCoords}`)
@@ -72,7 +72,7 @@ function filterStationsList(filterString: string): StationRowInterface {
     const foundEntries: ScoredObjectInterface = {};
 
     Object.keys(STATIONS)
-        .map((key: string) => ({key, value: STATIONS[key]}))
+        .map((key: string) => ({ key, value: STATIONS[key] }))
         .forEach((element: { key: string, value: string }) => {
             if (!foundEntries[element.key]) {
                 foundEntries[element.key] = {
@@ -87,7 +87,7 @@ function filterStationsList(filterString: string): StationRowInterface {
     const newee = Object.keys(foundEntries).map(elem => ({
         key: elem,
         value: foundEntries[elem].value,
-        score: foundEntries[elem].score,
+        score: foundEntries[elem].score
     }));
 
     const toReturn: StationRowInterface = {};

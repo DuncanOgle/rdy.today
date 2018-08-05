@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import TubeService, {TubeRowInterface} from '../../services/TubeService';
+import TubeService, { TubeRowInterface } from '../../services/TubeService';
 import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import CardTitle from '../../components/CardTitle';
@@ -8,8 +8,12 @@ import CardLoading from '../../components/CardLoading';
 import CardInner from '../../components/CardInner';
 import TubeRow from '../../components/TubeRow';
 
-interface Props {}
-interface State {tube: Array<TubeRowInterface>}
+interface Props {
+}
+
+interface State {
+    tube: Array<TubeRowInterface>
+}
 
 class Tube extends Component<Props, State> {
     constructor(props: Props) {

@@ -1,7 +1,7 @@
-import {h} from 'preact';
+import { h } from 'preact';
 import './Tube.css';
 
-import {TubeRowInterface} from '../../services/TubeService';
+import { TubeRowInterface } from '../../services/TubeService';
 
 interface Props {
     row: TubeRowInterface

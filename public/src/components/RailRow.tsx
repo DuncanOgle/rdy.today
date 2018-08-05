@@ -1,6 +1,6 @@
-import {h} from 'preact';
+import { h } from 'preact';
 
-import {RailRowInterface} from '../services/RailService';
+import { RailRowInterface } from '../services/RailService';
 
 const styling = {
     padding: '5px 5px'
@@ -31,7 +31,7 @@ const RailRow = (props: { row: RailRowInterface }) => {
     return (
         <p key={key} style={styling}>
             {departureTime} ({trainStatus}) {platform}
-            <span dangerouslySetInnerHTML={{__html: getStatusText(row)}} />
+            <span dangerouslySetInnerHTML={{ __html: getStatusText(row) }} />
         </p>
     );
 };

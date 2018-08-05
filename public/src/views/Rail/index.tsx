@@ -1,6 +1,6 @@
-import {h, Component} from 'preact';
+import { h, Component } from 'preact';
 
-import RailService, {RailRowInterface} from '../../services/RailService';
+import RailService, { RailRowInterface } from '../../services/RailService';
 import GeoService from '../../services/GeoService';
 import QueryString from '../../services/QueryString';
 
@@ -15,7 +15,7 @@ import RailRow from '../../components/RailRow';
 import PubSub from '../../services/PubSub';
 import Constants from '../../services/Constants';
 
-import {MetaDataInterface} from '../../components/RailFromTo';
+import { MetaDataInterface } from '../../components/RailFromTo';
 
 interface Props {
 }
