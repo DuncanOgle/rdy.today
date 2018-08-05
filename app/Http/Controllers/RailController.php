@@ -85,8 +85,14 @@ class RailController extends Controller
 
         array_multisort($distances, SORT_ASC, $result);
 
+        $finalResult = [];
 
-        return $this->successResponse($result);
+        foreach (TargettedRailData::lines() as $key => $line) {
+            $finalResult[$key] = $line['title'];
+        }
+
+
+        return $this->successResponse($finalResult);
     }
 
     private function determineOrderFromCoords($from, $to, $coords)

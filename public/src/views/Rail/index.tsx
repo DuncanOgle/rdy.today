@@ -1,6 +1,6 @@
 import {h, Component} from 'preact';
 
-import RailService from '../../services/RailService';
+import RailService, {RailRowInterface} from '../../services/RailService';
 import GeoService from '../../services/GeoService';
 import QueryString from '../../services/QueryString';
 
@@ -22,7 +22,7 @@ interface Props {
 
 interface State {
     rail: {
-        times: Array<string>,
+        times: Array<RailRowInterface>,
         messages: Array<string>,
         meta: MetaDataInterface
     },

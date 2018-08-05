@@ -1,7 +1,5 @@
-import * as Mitt from 'mitt/dist/mitt.umd';
-import { Emitter } from 'mitt';
-
-const emitter = new Mitt() as Emitter;
+import * as Mitt from 'mitt';
+let emitter: mitt.Emitter = new Mitt();
 
 // import Mitt from 'mitt';
 

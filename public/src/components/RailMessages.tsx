@@ -5,7 +5,7 @@ const styling = {
     marginBottom: '10px'
 };
 
-const RailMessages = (props: { messages: Array<T> }) => {
+const RailMessages = (props: { messages: Array<string> }) => {
     if (!props.messages.length) {
         return null;
     }

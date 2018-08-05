@@ -2,7 +2,7 @@ import {MetaDataInterface} from '../components/RailFromTo';
 
 export interface RailResultInterface {
     data: {
-        times: Array<string>,
+        times: Array<RailRowInterface>,
         messages: Array<string>,
         meta: MetaDataInterface
     }
@@ -19,23 +19,21 @@ export interface RailRowInterface {
 }
 
 interface StationResultInterface {
-    data: Array<StationRowInterface>
+    data: StationRowInterface
 }
 
 export interface StationRowInterface {
-    [index: string]: string,
-
-    title?: string
+    [index: string]: string
 }
 
 interface ScoredObjectInterface {
-    [index: string]: string,
-
-    value?: string,
-    score?: string
+    [index: string]: {
+        value?: string,
+        score?: number
+    },
 }
 
-let STATIONS: { [index: string]: string } = {};
+let STATIONS: StationRowInterface = {};
 
 function getRailData(from = 'LEW', to = 'CHX', coords = ''): Promise<RailResultInterface> {
     const newCoords = coords ? `/${coords}` : '';
@@ -48,7 +46,7 @@ function getRailData(from = 'LEW', to = 'CHX', coords = ''): Promise<RailResultI
     });
 }
 
-function getStationsList(coords = ''): Promise<any> {
+function getStationsList(coords = ''): Promise<StationResultInterface> {
     const newCoords = coords ? `/${coords}` : '';
 
     return new Promise((resolve, reject) => {
@@ -66,7 +64,7 @@ function getStationsList(coords = ''): Promise<any> {
     });
 }
 
-function filterStationsList(filterString: string) {
+function filterStationsList(filterString: string): StationRowInterface {
     if (filterString === '' || filterString.length < 2) {
         return STATIONS;
     }
@@ -92,7 +90,7 @@ function filterStationsList(filterString: string) {
         score: foundEntries[elem].score,
     }));
 
-    const toReturn = {};
+    const toReturn: StationRowInterface = {};
     newee
         .filter(element => !!element.score)
         .sort(sortFunction)
@@ -124,7 +122,7 @@ function determineScore(element: { key: string, value: string }, filterString: s
     }
 }
 
-function sortFunction(a: { score: string }, b: { score: string }) {
+function sortFunction(a: { key: string; value: string; score: number; }, b: { key: string; value: string; score: number; }) {
     if (a.score < b.score) {
         return 1;
     }

@@ -3,7 +3,7 @@ import './StationSelector.css';
 
 import CardLoading from '../../../components/CardLoading';
 
-import RailService, {RailResultInterface} from '../../../services/RailService';
+import RailService, {StationRowInterface} from '../../../services/RailService';
 import QueryString from '../../../services/QueryString';
 import PubSub from '../../../services/PubSub';
 import Constants from '../../../services/Constants';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 interface State {
-    stationsList: Array<RailResultInterface>,
+    stationsList: StationRowInterface,
     filterString: string,
     stationToChange: string
 }
@@ -26,7 +26,7 @@ class StationSelector extends Component<Props, State> {
         super(props);
 
         this.state = {
-            stationsList: [],
+            stationsList: {},
             filterString: '',
             stationToChange: props.data.stationToChange
         };
@@ -56,8 +56,10 @@ class StationSelector extends Component<Props, State> {
     }
 
     onSearch(event: KeyboardEvent) {
+        const target = event.target as HTMLInputElement;
+
         this.setState({
-            filterString: event.target.value
+            filterString: target.value
         });
     }
 
@@ -83,7 +85,9 @@ class StationSelector extends Component<Props, State> {
     }
 
     closeModal(event?: MouseEvent) {
-        if (!event || event.target.id === 'modal') {
+        const target = event.target as HTMLElement;
+
+        if (!event || target.id === 'modal') {
             PubSub.publish(Constants.STATION_SELECT_CLOSE);
         }
     }
@@ -95,7 +99,7 @@ class StationSelector extends Component<Props, State> {
         if (filtered) {
             data = Object.keys(filtered).map(stationCode => ({
                 code: stationCode,
-                title: filtered[stationCode].title || filtered[stationCode]
+                title: filtered[stationCode]
             }));
         }
 
