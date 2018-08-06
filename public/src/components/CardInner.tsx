@@ -1,12 +1,6 @@
 import { h } from 'preact';
 
-interface StyleInterface {
-    borderRadius?: string,
-    background?: string,
-    position?: string,
-    padding?: string,
-    marginBottom?: string
-}
+import { StyleInterface } from '../types';
 
 const CardInner = (props: { children?: any, style?: StyleInterface, withPadding?: boolean, className?: string }) => {
     const styling = Object.assign(props.style || {}, {
