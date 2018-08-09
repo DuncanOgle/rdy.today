@@ -1,12 +1,9 @@
-interface ResultInterface {
-    [index: string]: string,
-
-    from?: string,
-    to?: string
+interface parsedResultInterface {
+    [index: string]: string
 }
 
-function parse(): ResultInterface {
-    const data: ResultInterface = {};
+function parse(): parsedResultInterface {
+    const data: parsedResultInterface = {};
 
     if (!window.location.search) {
         return data;
@@ -24,7 +21,7 @@ function parse(): ResultInterface {
 }
 
 function addOrUpdateQueryString(key: string, value: string) {
-    const parsed: ResultInterface = parse();
+    const parsed: parsedResultInterface = parse();
 
     parsed[key] = value;
 
