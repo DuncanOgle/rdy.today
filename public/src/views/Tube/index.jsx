@@ -7,6 +7,8 @@ import CardTitle from '../../components/CardTitle';
 import CardLoading from '../../components/CardLoading';
 import CardInner from '../../components/CardInner';
 import TubeRow from '../../components/TubeRow';
+import PubSub from '../../services/PubSub';
+import Constants from '../../services/Constants';
 
 class Tube extends Component {
     constructor(props) {
@@ -15,9 +17,20 @@ class Tube extends Component {
         this.state = {
             tube: null
         };
+
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
+        PubSub.subscribe(Constants.REFRESH, this.getGeoData);
+        this.getData();
+    }
+
+    getData() {
+        this.setState({
+            tube: null
+        });
+
         TubeService.getTubeData()
             .then((response) => {
                 this.setState({

@@ -30,10 +30,15 @@ class Rail extends Component {
 
     componentDidMount() {
         PubSub.subscribe(Constants.STATION_SELECT, this.getGeoRailData);
+        PubSub.subscribe(Constants.REFRESH, this.getGeoRailData);
         this.getGeoRailData();
     }
 
     getGeoRailData() {
+        this.setState({
+            rail: null
+        });
+
         const overrides = QueryString.parse();
 
         const from = overrides.from || 'LEW';
@@ -88,7 +93,7 @@ class Rail extends Component {
         const metadata = this.state.rail && this.state.rail.meta;
 
         return (
-            <Card>
+            <Card className="card--rail">
                 <CardHeader>
                     <CardTitle>
                         {!hasData && 'Rail'}
