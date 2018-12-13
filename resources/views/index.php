@@ -7,7 +7,6 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FFFFFF">
 
-  <link rel="stylesheet" href="dist/index.css">
   <style>
   *,
   *::before,
@@ -57,10 +56,16 @@
   h3 {
     font-size: 1.6em;
   }
+
+  <?php include(getcwd().'/dist/index.css'); ?>
   </style>
+  <!-- <link rel="stylesheet" href="dist/index.css"> -->
 </head>
 <body>
   <div id="main"></div>
 </body>
-<script src="/dist/index.js"></script>
+<script>
+  <?php include(getcwd().'/dist/index.js'); ?>
+</script>
+<!-- <script src="/dist/index.js"></script> -->
 </html>
