@@ -5,6 +5,104 @@
   "name": "Rdy.Today",
   "short_name": "Rdy.Today",
   "display": "standalone",
-  "icons": [],
-  "orientation": "portrait"
+  "icons": [
+    {
+      "src": "/images/9daa058a-1f36-be92-2792-6cc9a368581b.webPlatform.png",
+      "sizes": "44x44",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/b258d4b9-60d4-5f94-c0c2-a7045c0fced6.webPlatform.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/0ee4c3fb-34a6-6b57-8907-bceabd73802b.webPlatform.png",
+      "sizes": "1240x600",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/d0d44854-0c3f-8ea5-82f0-e49a70311547.webPlatform.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/3f7ebd9c-e4af-9bc7-7881-703db6ba6316.webPlatform.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/92df1609-6141-c0ad-2b2f-d12e986ab53b.webPlatform.png",
+      "sizes": "88x88",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/b8277c65-659e-5990-ffe6-6a13da229b14.webPlatform.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/7c83113e-eda9-56e4-8bd5-146d3ba3cf19.webPlatform.png",
+      "sizes": "50x50",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/7eff8c6e-1bd3-183f-08ef-f05ac159ad8b.webPlatform.png",
+      "sizes": "620x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/c4769a53-65b5-2cf6-0486-1b960b2a5526.webPlatform.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/6aef0bde-92ac-8b26-acca-d0d1351f13cc.webPlatform.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/77275f3d-353b-8bce-1683-95b0803e558c.webPlatform.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/3f533c76-6c05-cd62-4a7b-ab8fc74ba579.webPlatform.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/e8a91f29-f3c9-9a9d-1b9a-3deb2449aed2.webPlatform.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/2f9911c6-5c17-f567-6f8b-d081856439e9.webPlatform.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/5500145a-c81d-3557-79ef-64c4cc13930d.webPlatform.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/59ac88c1-b21e-6046-999b-9439557f5f04.webPlatform.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/6b194cd2-bae7-cc58-1554-3a165647947a.webPlatform.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/179c66c2-9905-1d15-9405-c20ae527d5b5.webPlatform.png",
+      "sizes": "76x76",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "start_url": "https://rdy.today/",
+  "description": "A way to start the day"
 }
