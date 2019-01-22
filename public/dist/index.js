@@ -5,7 +5,7 @@ parcelRequire=function(e,r,n,t){var i="function"==typeof parcelRequire&&parcelRe
 },{}],"gQZp":[function(require,module,exports) {
 "use strict";function e(e){return new Promise((t,r)=>{fetch(`/api/weather${e?`/${e}`:""}`).then(e=>e.json()).then(e=>t(e)).catch(r)})}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var t={getWeatherData:e};exports.default=t;
 },{}],"Vc5y":[function(require,module,exports) {
-"use strict";function o(o){return{lat:o.coords.latitude,lon:o.coords.longitude}}function t(){return new Promise((t,e)=>{navigator.geolocation.getCurrentPosition(e=>{t(o(e))},e)})}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e={positionToObject:o,getGeoPosition:t};exports.default=e;
+"use strict";function e(e){return{lat:e.coords.latitude,lon:e.coords.longitude}}function o(){return new Promise((o,t)=>{navigator.geolocation.getCurrentPosition(t=>{o(e(t))},t,{enableHighAccuracy:!0,timeout:1e4,maximumAge:12e5})})}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var t={positionToObject:e,getGeoPosition:o};exports.default=t;
 },{}],"VhRn":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e=require("preact");require("./Card.css");const r=r=>{const s=["card",r.className||""].join(" ");return(0,e.h)("div",{className:s},r.children)};var s=r;exports.default=s;
 },{"preact":"WHr8","./Card.css":"mwAj"}],"7+lr":[function(require,module,exports) {

@@ -18,7 +18,11 @@ function getGeoPosition() {
         // });
         navigator.geolocation.getCurrentPosition((position) => {
             resolve(positionToObject(position));
-        }, reject);
+        }, reject, {
+            enableHighAccuracy: true, // we really don't need it
+            timeout: 10000, // 10 second timeout
+            maximumAge: 1200000 // 20 minutes
+        });
     });
 }
 
