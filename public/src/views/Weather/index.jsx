@@ -11,6 +11,8 @@ import CardLoading from '../../components/CardLoading';
 import WeatherRow from '../../components/WeatherRow';
 import CardInner from '../../components/CardInner';
 import WeatherViewMore from '../../components/WeatherViewMore';
+import PubSub from '../../services/PubSub';
+import Constants from '../../services/Constants';
 
 class Weather extends Component {
     constructor(props) {
@@ -22,9 +24,19 @@ class Weather extends Component {
         };
 
         this.increaseLimit = this.increaseLimit.bind(this);
+        this.getGeoData = this.getGeoData.bind(this);
     }
 
     componentDidMount() {
+        PubSub.subscribe(Constants.REFRESH, this.getGeoData);
+        this.getGeoData();
+    }
+
+    getGeoData() {
+        this.setState({
+            weather: null
+        });
+
         GeoService.getGeoPosition()
             .then((coords) => {
                 this.getWeatherData(`${coords.lat},${coords.lon}`);
@@ -39,6 +51,10 @@ class Weather extends Component {
      * @param {String} [coords]
      */
     getWeatherData(coords) {
+        this.setState({
+            weather: null
+        });
+
         WeatherService.getWeatherData(coords)
             .then((response) => {
                 this.setState({
