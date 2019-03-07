@@ -46,23 +46,25 @@ class WeatherController extends Controller
             $location = "51.513788,-0.098498";
         }
 
-        $data = json_decode(file_get_contents("http://api.wunderground.com/api/44e5245ea7ad9ad5/hourly/q/$location.json"));
+        $apiKey = env('WEATHER_API_KEY');
+
+        $data = json_decode(file_get_contents("https://api.darksky.net/forecast/$apiKey/$location?exclude=currently,minutely,daily,flags&units=uk2"));
 
         $counter = 0;
         $toReturn = [];
 
-        foreach ($data->hourly_forecast as $object) {
+        foreach ($data->hourly->data as $object) {
             if ($counter >= 24) {
                 break;
             }
             $toReturn[] = [
-                'hour'          => intval($object->FCTTIME->hour_padded),
-                'temperature'   => intval($object->temp->metric),
-                'feelsLike'     => intval($object->feelslike->metric),
-                'pop'           => intval($object->pop),
-                'condition'     => $object->condition,
-                'windSpeed'     => intval($object->wspd->english),
-                'windDirection' => $object->wdir->dir,
+                'hour'          => intval(date('H', $object->time)),
+                'temperature'   => intval($object->temperature),
+                'feelsLike'     => intval($object->apparentTemperature),
+                'pop'           => intval($object->precipProbability*100),
+                'condition'     => $object->summary,
+                'windSpeed'     => intval($object->windSpeed),
+                'windDirection' => $object->windBearing,
                 'humidity'      => intval($object->humidity),
             ];
             $counter++;

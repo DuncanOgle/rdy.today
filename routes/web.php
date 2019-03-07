@@ -19,6 +19,8 @@ $app->get('/api', function () use ($app) {
     return $app->version();
 });
 
+$app->get('/api/all', 'AllController@index');
+
 $app->get('/api/tube/', 'TubeController@getTube');
 $app->get('/api/tube/{line}', 'TubeController@getSpecificTube');
 
