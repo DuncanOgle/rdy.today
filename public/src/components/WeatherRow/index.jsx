@@ -9,7 +9,6 @@ const WeatherRow = (props) => {
         <p key={row.hour} className={`rain rain-${row.pop}`}>
             {hourOfWeather}
             - ☀️ {row.feelsLike}°
-            / 💦 {row.pop}%
             / 💨 {row.windSpeed}mph
             / {row.condition}
         </p>
