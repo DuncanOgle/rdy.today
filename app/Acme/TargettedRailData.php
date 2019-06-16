@@ -12,7 +12,7 @@ use App\Acme\RailData;
 
 class TargettedRailData {
     static function lines() {
-        $approvedStationList = ["LEW","LBG","CHX","CST","WAT","WAE","GTW","TBD","BTN","EUS","MAN","BON","CTR","FLN","GNW","BKH","DFD","LAD"];
+        $approvedStationList = ["LEW","LBG","CHX","CST","WAT","WAE","GTW","TBD","BTN","EUS","MAN","BON","CTR","FLN","GNW","BKH","DFD","LAD","VIC"];
 
         $approved = array_filter(RailData::lines(), function ($element) use ($approvedStationList) {
             return in_array($element, $approvedStationList);
